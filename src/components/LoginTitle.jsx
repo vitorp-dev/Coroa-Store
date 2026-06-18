@@ -1,4 +1,4 @@
-import coroaIcon from '../assets/images/coroa.png';
+import coroaIcon from '../assets/Imagenslogin/coroa.png';
 
 export default function LoginTitle() {
   return (

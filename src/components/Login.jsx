@@ -1,70 +1,33 @@
+import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
+import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
+import Produtos from './Produtos';
 
-import coroaIcon from '../assets/images/coroa.png';
-
-const premiumSignals = [
-  {
-    title: 'Acesso seguro',
-    description: 'Seus dados protegidos',
-  },
-  {
-    title: 'Suporte comercial',
-    description: 'Conte com nosso time',
-  },
-  {
-    title: 'Sistema conectado',
-    description: 'Tudo funcionando',
-  },
+const navItems = [
+  { label: 'Acessar', href: '#login-email' },
+  { label: 'Destaques', href: '#produtos' },
+  { label: 'Fale Conosco', target: '_blank', href: 'https://coroa.com.br/fale-conosco/' },
+  { label: 'Ajuda', href: '#ajuda' },
 ];
 
-const premiumHighlights = [
+const featureItems = [
   {
-    title: 'Mais agilidade',
-    description: 'Pedidos rapidos e sem erros',
-    icon: 'chart',
+    title: 'Pedidos Rápidos',
+    description: 'Agilidade para comprar quando você precisa.',
+    icon: 'speed',
   },
   {
-    title: 'Melhores condicoes',
-    description: 'Campanhas e ofertas exclusivas',
+    title: 'Ofertas Exclusivas',
+    description: 'Condições especiais para o seu negócio.',
     icon: 'tag',
   },
   {
-    title: 'Relacionamento forte',
-    description: 'Mais proximidade e resultados',
-    icon: 'user',
+    title: 'Suporte Comercial',
+    description: 'Conte com nosso time sempre que precisar.',
+    icon: 'headset',
   },
 ];
 
-function FeatureIcon({ type }) {
-  if (type === 'chart') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 19h16" />
-        <path d="M7 16V9" />
-        <path d="M12 16V5" />
-        <path d="M17 16v-7" />
-        <path d="m5 14 4-4 3 2 5-5" />
-      </svg>
-    );
-  }
-
-  if (type === 'tag') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20 10 11 19 4 12V4h8Z" />
-        <circle cx="9" cy="9" r="1.5" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" />
-      <path d="M5 20a7 7 0 0 1 14 0" />
-    </svg>
-  );
-}
-
-function InputIcon({ type }) {
+function Icon({ type }) {
   if (type === 'mail') {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -101,108 +64,159 @@ function InputIcon({ type }) {
     );
   }
 
-  if (type === 'lock-mini') {
+  if (type === 'user-plus') {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8 11h8v7H8Z" />
-        <path d="M10 11V9a2 2 0 1 1 4 0v2" />
+        <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" />
+        <path d="M5 20a7 7 0 0 1 10.6-6" />
+        <path d="M19 8v6" />
+        <path d="M16 11h6" />
+      </svg>
+    );
+  }
+
+  if (type === 'truck') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h11v9H3Z" />
+        <path d="M14 9h3l4 4v2h-7Z" />
+        <circle cx="8" cy="18" r="2" />
+        <circle cx="18" cy="18" r="2" />
+      </svg>
+    );
+  }
+
+  if (type === 'speed') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M13 2 5 13h6l-1 9 9-13h-6Z" />
+        <path d="M3 7h4" />
+        <path d="M2 12h3" />
+        <path d="M4 17h3" />
+      </svg>
+    );
+  }
+
+  if (type === 'tag') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 10 11 19 4 12V4h8Z" />
+        <circle cx="9" cy="9" r="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === 'headset') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 13v-1a7 7 0 0 1 14 0v1" />
+        <path d="M5 13h3v5H5a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2Z" />
+        <path d="M19 13h-3v5h3a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2Z" />
+        <path d="M16 18v1.5A2.5 2.5 0 0 1 13.5 22H11" />
+        <path d="M9 9.5a3.5 3.5 0 0 1 6 0" />
+        <path d="M9 14c1.5 1.4 4.5 1.4 6 0" />
       </svg>
     );
   }
 
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 5v14" />
-      <path d="M5 12h14" />
+      <path d="M4 12a8 8 0 0 1 16 0v6h-4v-4a4 4 0 1 0-8 0v4H4Z" />
+      <path d="M8 18v1" />
+      <path d="M16 18v1" />
     </svg>
   );
 }
 
-function BrandHeader() {
+function BrandMark() {
   return (
-    <div className="login-wordmark" aria-label="Coroa Store">
-      <span className="login-wordmark__text">
-        <span className="login-wordmark__coroa">Coroa</span>
-        <span className="login-wordmark__store">Store</span>
+    <div className="login-brandmark" aria-label="Grupo Coroa">
+      <span>
+        <strong>Coroa</strong> Store
       </span>
-      <span className="login-wordmark__icon">
-        <img src={coroaIcon} alt="" />
+      <span className="login-brandmark__icon">
+        <img src={titleCrownIcon} alt="Icone Coroa" />
       </span>
     </div>
   );
 }
 
-function BrandPanel() {
+function TopBar() {
   return (
-    <div className="login-brand">
-      <BrandHeader />
+    <header className="login-topbar">
+      <BrandMark />
 
-      <div className="login-brand__content">
-        <h1
-          className="login-brand__title"
-          aria-label="Tudo o que sua equipe comercial precisa para vender mais e melhor."
-        >
-          <span className="login-brand__title-line">Tudo o que</span>
-          <span className="login-brand__title-line">Você</span>
-          <span className="login-brand__title-line login-brand__title-line--accent">
-            precisa para vender
-          </span>
-          <span className="login-brand__title-line login-brand__title-line--accent">
-            mais e melhor.
-          </span>
+      <nav className="login-nav" aria-label="Principal">
+        {navItems.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            target={item.target}
+            rel={item.target === '_blank' ? 'noreferrer' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <button type="button" className="login-topbar__action">
+        <span className="login-icon">
+          <Icon type="user-plus" />
+        </span>
+        Solicitar acesso
+      </button>
+    </header>
+  );
+}
+
+function HeroSection() {
+  return (
+    <section className="login-hero" aria-labelledby="login-hero-title">
+      <div className="login-hero__content">
+        <h1 id="login-hero-title" className="login-hero__title">
+          <span>Conecte-se</span>
+          <span>Com o Melhor</span>
+          <span className="login-hero__title-glow">do</span>
+          <span className="login-hero__title-accent">Grupo Coroa</span>
         </h1>
-        <span className="login-brand__divider" />
-        <p className="login-brand__copy">
-          Centralize pedidos, acompanhe campanhas, consulte condicoes
-          exclusivas e fortaleça o relacionamento com seus clientes em um só
-          lugar.
-        </p>
-      </div>
 
-      <div className="login-brand__spotlight" aria-label="Pilares principais">
-        {premiumHighlights.map((item) => (
-          <article key={item.title} className="login-brand__feature-card">
-            <span className="login-brand__feature-icon">
-              <FeatureIcon type={item.icon} />
-            </span>
-            <div>
+        <span className="login-hero__divider" />
+
+        <p className="login-hero__copy">
+          Centralize e acompanhe seus pedidos!
+        </p>
+
+        <div className="login-hero__features" aria-label="Beneficios principais">
+          {featureItems.map((item) => (
+            <article key={item.title} className="login-feature">
+              <div className="login-feature__icon">
+                <Icon type={item.icon} />
+              </div>
               <strong>{item.title}</strong>
               <span>{item.description}</span>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
-
-      <div className="login-brand__signals" aria-label="Diferenciais da experiencia">
-        {premiumSignals.map((signal) => (
-          <div key={signal.title} className="login-brand__signal-item">
-            <span className="login-brand__signal-icon" />
-            <div>
-              <strong>{signal.title}</strong>
-              <span>{signal.description}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }
 
-function LoginFormPanel() {
+function LoginPanel() {
   return (
-    <section className="login-panel" aria-labelledby="login-title">
-      <div className="login-panel__badge-icon">
-        <img src={coroaIcon} alt="" />
+    <section id="login-card" className="login-panel" aria-labelledby="login-title">
+      <div className="login-panel__badge">
+        <img src={titleCrownIcon} alt="" />
       </div>
-      <div className="login-panel__glow" aria-hidden="true" />
 
       <div className="login-panel__header">
         <span className="login-pill">
-          <span className="login-pill__icon">
-            <InputIcon type="lock-mini" />
+          <span className="login-icon login-icon--small">
+            <Icon type="lock" />
           </span>
-          Acesso seguro
+          ACESSO SEGURO
         </span>
+
         <h2 id="login-title">Acessar plataforma</h2>
         <p>Entre com suas credenciais para continuar</p>
       </div>
@@ -210,54 +224,64 @@ function LoginFormPanel() {
       <form className="login-form">
         <label className="login-field">
           <span>E-mail</span>
-          <div className="login-input-wrap">
-            <span className="login-input-icon">
-              <InputIcon type="mail" />
+          <div className="login-input">
+            <span className="login-icon login-icon--muted">
+              <Icon type="mail" />
             </span>
-            <input type="email" placeholder="voce@empresa.com" />
+            <input
+              id="login-email"
+              type="email"
+              placeholder="voce@empresa.com"
+              autoComplete="email"
+            />
           </div>
         </label>
 
         <label className="login-field">
           <span>Senha</span>
-          <div className="login-input-wrap">
-            <span className="login-input-icon">
-              <InputIcon type="lock" />
+          <div className="login-input">
+            <span className="login-icon login-icon--muted">
+              <Icon type="lock" />
             </span>
             <input type="password" placeholder="Digite sua senha" />
-            <span className="login-input-icon login-input-icon--end">
-              <InputIcon type="eye" />
-            </span>
+            <button type="button" className="login-input__toggle" aria-label="Mostrar senha">
+              <span className="login-icon login-icon--muted">
+                <Icon type="eye" />
+              </span>
+            </button>
           </div>
         </label>
 
         <div className="login-form__meta">
           <label className="login-checkbox">
             <input type="checkbox" defaultChecked />
-            <span>Manter sessão ativa</span>
+            <span>Manter sessao ativa</span>
           </label>
+
           <button type="button" className="login-link">
             Esqueci minha senha
           </button>
         </div>
 
         <button type="submit" className="login-submit">
-          <span>Entrar agora</span>
-          <span className="login-submit__arrow">→</span>
+          Entrar agora
+          <span aria-hidden="true">→</span>
         </button>
 
-        <button type="button" className="login-secondary-action">
-          <span>Solicitar acesso para equipe comercial</span>
-          <span className="login-secondary-action__icon">↗</span>
+        <button type="button" className="login-request-access">
+          <span className="login-icon login-icon--small">
+            <Icon type="user-plus" />
+          </span>
+          Solicitar acesso
         </button>
       </form>
 
       <div className="login-panel__footer">
-        <span className="login-panel__footer-icon">
-          <InputIcon type="shield" />
+        <span className="login-icon login-icon--tiny">
+          <Icon type="shield" />
         </span>
-        <span>Seus dados estão protegidos com criptografia de ponta.</span>
-        <button type="button" className="login-panel__footer-link">
+        <span>Seus dados estao protegidos com criptografia de ponta.</span>
+        <button type="button" className="login-link">
           Saiba mais
         </button>
       </div>
@@ -267,27 +291,21 @@ function LoginFormPanel() {
 
 export default function Login() {
   return (
-    <main className="login-page">
-      <div
-        className="login-background"
-        aria-hidden="true"
-        
-      >
-        <span className="login-orb login-orb--primary" />
-        <span className="login-orb login-orb--secondary" />
-        <span className="login-grid" />
-      </div>
+    <main
+      className="login-page"
+      style={{ '--login-bg': `url(${backgroundImage})` }}
+    >
+      <div className="login-stage">
+        <TopBar />
 
-      <section className="login-shell">
-        <div className="login-content">
-          <aside className="login-showcase">
-            <BrandPanel />
-          </aside>
-          <div className="login-side">
-            <LoginFormPanel />
+        <div className="login-layout">
+          <HeroSection />
+          <div className="login-layout__panel">
+            <LoginPanel />
           </div>
         </div>
-      </section>
+      </div>
+      <Produtos />
     </main>
   );
 }
