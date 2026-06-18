@@ -5,22 +5,30 @@ import kitRefri from '../assets/ImgProduto/kit_refri.png';
 import KitBw from '../assets/ImgProduto/kit_bw.png';
 import kitCampinho from '../assets/ImgProduto/kit_campinho.png';
 import KitTeresense from '../assets/ImgProduto/kit_teresense.png';
+import cardGuarana from '../assets/Catalogo/card_guarana.png';
+import cardBadWolf from '../assets/Catalogo/kit_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
 
 const ecommerceProducts = [
   {
-    name: 'Linha de Refrigerantes',
+    name: 'Guaraná Coroa',
     description: 'Linha completa para giro rapido no ponto de venda.',
     price: 'R$ 128,90',
-    image: kitRefri,
+    image: cardGuarana,
+    showImage: true,
     icon: 'bubbles',
     category: 'Refrigerantes',
+    options: {
+      sizes: ['250ml', '350ml', '600ml', '1L', '2L'],
+      types: ['Normal', 'Zero'],
+    },
   },
   {
     name: 'Linha Bad Wolf',
     description: 'Energeticos para campanhas e oportunidades.',
     price: 'R$ 142,50',
-    image: KitBw,
+    image: cardBadWolf,
+    showImage: true,
     icon: 'bolt',
     category: 'Energeticos',
   },
@@ -205,6 +213,10 @@ export default function Ecommerce({ onLogout }) {
   const [cartItems, setCartItems] = useState([]);
   const [orderStatus, setOrderStatus] = useState('');
   const [currentScreen, setCurrentScreen] = useState('catalogo');
+  const [expandedProduct, setExpandedProduct] = useState('');
+  const [productOptions, setProductOptions] = useState({
+    'Guaraná Coroa': { size: '250ml', type: 'Normal' },
+  });
 
   const cartTotal = cartItems.reduce(
     (total, item) => total + parseCurrency(item.price) * item.quantity,
@@ -215,13 +227,18 @@ export default function Ecommerce({ onLogout }) {
     ? ecommerceProducts
     : ecommerceProducts.filter((product) => product.category === selectedCategory);
 
+  function getProductCartKey(product) {
+    return product.cartKey || product.name;
+  }
+
   function addToCart(product) {
     setCartItems((currentItems) => {
-      const productInCart = currentItems.find((item) => item.name === product.name);
+      const productCartKey = getProductCartKey(product);
+      const productInCart = currentItems.find((item) => getProductCartKey(item) === productCartKey);
 
       if (productInCart) {
         return currentItems.map((item) =>
-          item.name === product.name
+          getProductCartKey(item) === productCartKey
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         );
@@ -230,6 +247,31 @@ export default function Ecommerce({ onLogout }) {
       return [...currentItems, { ...product, quantity: 1 }];
     });
     setOrderStatus('');
+  }
+
+  function addProductWithOptions(product) {
+    const selectedOptions = productOptions[product.name] || {
+      size: product.options.sizes[0],
+      type: product.options.types[0],
+    };
+
+    addToCart({
+      ...product,
+      name: `${product.name} - ${selectedOptions.size} ${selectedOptions.type}`,
+      cartKey: `${product.name}-${selectedOptions.size}-${selectedOptions.type}`,
+      selectedSize: selectedOptions.size,
+      selectedType: selectedOptions.type,
+    });
+  }
+
+  function updateProductOption(productName, optionName, value) {
+    setProductOptions((currentOptions) => ({
+      ...currentOptions,
+      [productName]: {
+        ...currentOptions[productName],
+        [optionName]: value,
+      },
+    }));
   }
 
   function decreaseCartItem(productName) {
@@ -270,7 +312,6 @@ export default function Ecommerce({ onLogout }) {
           <img src={titleCrownIcon} alt="" />
           <div>
             <strong>Coroa Store</strong>
-            <span>E-commerce B2B</span>
           </div>
         </div>
 
@@ -372,21 +413,17 @@ export default function Ecommerce({ onLogout }) {
         <>
           <section className="store-hero" aria-labelledby="store-title">
             <div className="store-hero__content">
-              <span className="store-eyebrow">Area interna</span>
+              <span className="store-eyebrow">Acesso Restrito</span>
               <h1 id="store-title">
-                Monte pedidos com <span>velocidade comercial.</span>
+                Monte pedidos com <span>Autonomia e Segurança.</span>
               </h1>
-              <p>
-                Simulacoes de e-commerce B2B para consultar linhas, adicionar itens e
-                acompanhar o resumo do pedido.
-              </p>
 
               <div className="store-hero__features" aria-label="Recursos da plataforma">
                 <article>
                   <StoreIcon type="catalog" />
                   <div>
                     <strong>Catalogo completo</strong>
-                    <span>Explore nossas linhas</span>
+                    <span>Explore nossos produtos</span>
                   </div>
                 </article>
                 <article>
@@ -440,24 +477,88 @@ export default function Ecommerce({ onLogout }) {
 
             <div className="store-product-grid">
               {filteredProducts.map((product) => (
-                <article key={product.name} className="store-product-card">
-                  <div className="store-product-card__image">
-                    <span className="store-product-card__icon">
-                      <StoreIcon type={product.icon} />
-                    </span>
-                    <img src={product.image} alt={product.name} />
-                  </div>
+                <article
+                  key={product.name}
+                  className={`store-product-card ${expandedProduct === product.name ? 'store-product-card--expanded' : ''}`}
+                  onClick={() => product.options && setExpandedProduct((currentProduct) =>
+                    currentProduct === product.name ? '' : product.name,
+                  )}
+                >
+                  {product.showImage ? (
+                    <div className="store-product-card__image">
+                      <span className="store-product-card__icon">
+                        <StoreIcon type={product.icon} />
+                      </span>
+                      <img src={product.image} alt={product.name} />
+                    </div>
+                  ) : (
+                    <div className="store-product-card__placeholder">
+                      <span className="store-product-card__icon">
+                        <StoreIcon type={product.icon} />
+                      </span>
+                      <strong>{product.category}</strong>
+                      <small>Imagem do produto</small>
+                    </div>
+                  )}
                   <div className="store-product-card__body">
                     <div>
                       <strong>{product.name}</strong>
                       <span>{product.description}</span>
                     </div>
+
+                    {product.options && expandedProduct === product.name ? (
+                      <div className="store-product-options" onClick={(event) => event.stopPropagation()}>
+                        <div>
+                          <strong>Tamanho</strong>
+                          <div className="store-product-options__group">
+                            {product.options.sizes.map((size) => (
+                              <button
+                                key={size}
+                                type="button"
+                                className={productOptions[product.name]?.size === size ? 'is-selected' : ''}
+                                onClick={() => updateProductOption(product.name, 'size', size)}
+                              >
+                                {size}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <strong>Tipo</strong>
+                          <div className="store-product-options__group">
+                            {product.options.types.map((type) => (
+                              <button
+                                key={type}
+                                type="button"
+                                className={productOptions[product.name]?.type === type ? 'is-selected' : ''}
+                                onClick={() => updateProductOption(product.name, 'type', type)}
+                              >
+                                {type}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
                     <div className="store-product-card__footer">
                       <div>
                         <small>A partir de</small>
                         <span>{product.price}</span>
                       </div>
-                      <button type="button" onClick={() => addToCart(product)}>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          if (product.options) {
+                            addProductWithOptions(product);
+                            return;
+                          }
+
+                          addToCart(product);
+                        }}
+                      >
                         <StoreIcon type="cart" />
                         Adicionar
                       </button>
