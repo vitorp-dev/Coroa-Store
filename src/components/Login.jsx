@@ -1,6 +1,12 @@
+import { useState } from 'react';
 import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import Produtos from './Produtos';
+
+const demoCredentials = {
+  email: 'cliente@coroastore.com',
+  password: 'coroa123',
+};
 
 const navItems = [
   { label: 'Acessar', href: '#login-email' },
@@ -202,7 +208,27 @@ function HeroSection() {
   );
 }
 
-function LoginPanel() {
+function LoginPanel({ onLogin }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const isValidLogin =
+      email.trim().toLowerCase() === demoCredentials.email &&
+      password === demoCredentials.password;
+
+    if (!isValidLogin) {
+      setError('E-mail ou senha invalidos. Use cliente@coroastore.com / coroa123.');
+      return;
+    }
+
+    setError('');
+    onLogin();
+  }
+
   return (
     <section id="login-card" className="login-panel" aria-labelledby="login-title">
       <div className="login-panel__badge">
@@ -221,7 +247,7 @@ function LoginPanel() {
         <p>Entre com suas credenciais para continuar</p>
       </div>
 
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <label className="login-field">
           <span>E-mail</span>
           <div className="login-input">
@@ -233,6 +259,8 @@ function LoginPanel() {
               type="email"
               placeholder="voce@empresa.com"
               autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
         </label>
@@ -243,7 +271,13 @@ function LoginPanel() {
             <span className="login-icon login-icon--muted">
               <Icon type="lock" />
             </span>
-            <input type="password" placeholder="Digite sua senha" />
+            <input
+              type="password"
+              placeholder="Digite sua senha"
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
             <button type="button" className="login-input__toggle" aria-label="Mostrar senha">
               <span className="login-icon login-icon--muted">
                 <Icon type="eye" />
@@ -262,6 +296,8 @@ function LoginPanel() {
             Esqueci minha senha
           </button>
         </div>
+
+        {error ? <p className="login-form__error">{error}</p> : null}
 
         <button type="submit" className="login-submit">
           Entrar agora
@@ -289,7 +325,7 @@ function LoginPanel() {
   );
 }
 
-export default function Login() {
+export default function Login({ onLogin }) {
   return (
     <main
       className="login-page"
@@ -301,7 +337,7 @@ export default function Login() {
         <div className="login-layout">
           <HeroSection />
           <div className="login-layout__panel">
-            <LoginPanel />
+            <LoginPanel onLogin={onLogin} />
           </div>
         </div>
       </div>
