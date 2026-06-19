@@ -1,27 +1,58 @@
 import { useState } from 'react';
-import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import bgProdutos from '../assets/ImgProduto/bg_produtos.png';
-import kitRefri from '../assets/ImgProduto/kit_refri.png';
-import KitBw from '../assets/ImgProduto/kit_bw.png';
-import kitCampinho from '../assets/ImgProduto/kit_campinho.png';
-import KitTeresense from '../assets/ImgProduto/kit_teresense.png';
+import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
-import cardBadWolf from '../assets/Catalogo/kit_bw.png';
+import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
+import CardCampinho from "../assets/Catalogo/card_campinho.png";
+import CardCoroaColaPremium from "../assets/Catalogo/card_coroacola_premium.png";
+import CardSabores from "../assets/Catalogo/card_sabores.png";
+import CardFrish from "../assets/Catalogo/card_frish.png";
+import CardTampico from "../assets/Catalogo/card_tampico.png";
+import CardKlass from "../assets/Catalogo/card_klass.png";
 
 const ecommerceProducts = [
   {
     name: 'Guaraná Coroa',
-    description: 'Linha completa para giro rapido no ponto de venda.',
-    price: 'R$ 128,90',
+    description: 'Linha Completa de Refrigerantes Sabor Guaraná.',
+    price: 'R$ 12,50',
     image: cardGuarana,
     showImage: true,
     icon: 'bubbles',
     category: 'Refrigerantes',
     options: {
-      sizes: ['250ml', '350ml', '600ml', '1L', '2L'],
+      sizes: ['250ml', '350ml', '600ml', '1L', '2L', '1,5L'],
       types: ['Normal', 'Zero'],
     },
+  },
+
+  {
+    name: 'Linha Campinho',
+    description: 'Produtos em destaque para ofertas comerciais.',
+    price: 'R$ 96,40',
+    image: CardCampinho,
+    showImage: true,
+    icon: 'drop',
+    category: 'Aguas',
+  },
+  {
+    name: 'Linha Coroa Cola Premium',
+    description: 'Embalagens para abastecimento recorrente.',
+    price: 'R$ 174,20',
+    image: CardCoroaColaPremium,
+    showImage: true,
+    icon: 'barrel',
+    category: 'Refrigerantes',
+  },
+
+  {
+    name: 'Linha Coroa Sabores',
+    description: 'Combinacao pratica para reposicao de refrigerantes.',
+    price: 'R$ 156,80',
+    image: CardSabores,
+    showImage: true,
+    icon: 'bubbles',
+    category: 'Refrigerantes',
   },
   {
     name: 'Linha Bad Wolf',
@@ -33,58 +64,37 @@ const ecommerceProducts = [
     category: 'Energeticos',
   },
   {
-    name: 'Linha Campinho',
-    description: 'Produtos em destaque para ofertas comerciais.',
-    price: 'R$ 96,40',
-    image: kitCampinho,
-    icon: 'drop',
-    category: 'Aguas',
-  },
-  {
-    name: 'Linha Artesanal',
-    description: 'Embalagens para abastecimento recorrente.',
-    price: 'R$ 174,20',
-    image: KitTeresense,
-    icon: 'barrel',
-    category: 'Artesanais',
-  },
-  {
-    name: 'Kit Refri Familia',
-    description: 'Combinacao pratica para reposicao de refrigerantes.',
-    price: 'R$ 156,80',
-    image: kitRefri,
-    icon: 'bubbles',
+    name: 'Linha Frish',
+    description: 'Selecao de energeticos para giro em campanhas.',
+    price: 'R$ 188,40',
+    image: CardFrish,
+    showImage: true,
+    icon: 'bolt',
     category: 'Refrigerantes',
   },
   {
-    name: 'Kit Bad Wolf Mix',
-    description: 'Selecao de energeticos para giro em campanhas.',
-    price: 'R$ 188,40',
-    image: KitBw,
-    icon: 'bolt',
-    category: 'Energeticos',
-  },
-  {
-    name: 'Kit Campinho Agua',
+    name: 'Linha Tampico',
     description: 'Opcoes leves para abastecimento diario do ponto.',
     price: 'R$ 82,90',
-    image: kitCampinho,
+    image: CardTampico,
+    showImage: true,
     icon: 'drop',
-    category: 'Aguas',
+    category: 'Sucos',
   },
   {
-    name: 'Pack Artesanais',
+    name: 'Linha Agua Klass',
     description: 'Rotulos especiais para clientes de maior valor.',
     price: 'R$ 219,70',
-    image: KitTeresense,
+    image: CardKlass,
+    showImage: true,
     icon: 'barrel',
-    category: 'Artesanais',
+    category: 'Aguas',
   },
   {
     name: 'Combo Promocional',
     description: 'Mix estrategico para montar ofertas comerciais.',
     price: 'R$ 132,60',
-    image: kitRefri,
+    // image: kitRefri,
     icon: 'cart',
     category: 'Refrigerantes',
   },
@@ -92,7 +102,7 @@ const ecommerceProducts = [
     name: 'Reposicao Express',
     description: 'Produtos selecionados para pedidos recorrentes.',
     price: 'R$ 164,30',
-    image: KitBw,
+    // image: KitBw,
     icon: 'chart',
     category: 'Energeticos',
   },
@@ -100,7 +110,7 @@ const ecommerceProducts = [
     name: 'Selecao Ponto Alto',
     description: 'Mix premium para pontos com maior volume de venda.',
     price: 'R$ 246,90',
-    image: KitTeresense,
+    // image: KitTeresense,
     icon: 'barrel',
     category: 'Artesanais',
   },
@@ -108,7 +118,7 @@ const ecommerceProducts = [
     name: 'Combo Giro Rapido',
     description: 'Itens campeoes para acelerar a reposicao da loja.',
     price: 'R$ 118,50',
-    image: kitCampinho,
+    image: CardCampinho,
     icon: 'cart',
     category: 'Sucos',
   },
@@ -302,6 +312,16 @@ export default function Ecommerce({ onLogout }) {
     setCartItems([]);
   }
 
+  function goToCart() {
+    setCurrentScreen('catalogo');
+    requestAnimationFrame(() => {
+      document.getElementById('carrinho')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
   return (
     <main
       className="store-page"
@@ -389,10 +409,6 @@ export default function Ecommerce({ onLogout }) {
         </div>
 
         <div className="store-session">
-          <button type="button" className="store-notification" aria-label="Notificacoes">
-            <span>{cartQuantity}</span>
-          </button>
-
           <div className="store-session__user" aria-label="Usuario logado">
             <span>GC</span>
             <div>
@@ -406,6 +422,16 @@ export default function Ecommerce({ onLogout }) {
           </button>
         </div>
       </header>
+
+      <button
+        type="button"
+        className="store-notification"
+        aria-label={`Carrinho com ${cartQuantity} item(ns)`}
+        onClick={goToCart}
+      >
+        <StoreIcon type="cart" />
+        <span>{cartQuantity}</span>
+      </button>
 
       {currentScreen === 'pedidos' ? (
         <AcompanhamentoPedidos onBackToCatalog={() => setCurrentScreen('catalogo')} />
@@ -444,7 +470,7 @@ export default function Ecommerce({ onLogout }) {
             </div>
 
             <div className="store-hero__media" aria-hidden="true">
-              <img src={kitRefri} alt="" />
+              <img src={bgProdutos} alt="" />
             </div>
 
             <aside className="store-summary" id="resumo" aria-label="Resumo do pedido">
