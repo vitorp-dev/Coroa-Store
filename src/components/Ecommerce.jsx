@@ -98,7 +98,7 @@ const ecommerceProducts = [
     image: CampinhoTonica,
     showImage: true,
     icon: 'drop',
-    category: 'Sucos',
+    category: 'Aguas',
   },
   // 09Campinho Premium
    {
@@ -108,7 +108,7 @@ const ecommerceProducts = [
     image:CampinhoPremium,
     showImage: true,
     icon: 'drop',
-    category: 'Sucos',
+    category: 'Aguas',
   },
   // 10 Linha Agua Klass
   {
@@ -148,11 +148,11 @@ const ecommerceProducts = [
     image: CardLafruit,
     showImage: true,
     icon: 'barrel',
-    category: 'Artesanais',
+    category: 'Sucos',
   },
   // Linha Tampico
   {
-    name: 'Combo Giro Rapido',
+    name: 'Linha Tampico',
     description: 'Itens campeoes para acelerar a reposicao da loja.',
     price: 'R$ 118,50',
     image: CardTampico,
@@ -263,6 +263,7 @@ export default function Ecommerce({ onLogout }) {
   const [orderStatus, setOrderStatus] = useState('');
   const [currentScreen, setCurrentScreen] = useState('catalogo');
   const [expandedProduct, setExpandedProduct] = useState('');
+  const [selectedModalProduct, setSelectedModalProduct] = useState(null);
   const [productOptions, setProductOptions] = useState({
     'Guaraná Coroa': { size: '250ml', type: 'Normal' },
   });
@@ -300,6 +301,24 @@ export default function Ecommerce({ onLogout }) {
       video.removeEventListener('timeupdate', keepLoopSeamless);
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedModalProduct) {
+      return undefined;
+    }
+
+    function closeModalOnEscape(event) {
+      if (event.key === 'Escape') {
+        setSelectedModalProduct(null);
+      }
+    }
+
+    window.addEventListener('keydown', closeModalOnEscape);
+
+    return () => {
+      window.removeEventListener('keydown', closeModalOnEscape);
+    };
+  }, [selectedModalProduct]);
 
   function getProductCartKey(product) {
     return product.cartKey || product.name;
@@ -579,9 +598,7 @@ export default function Ecommerce({ onLogout }) {
                 <article
                   key={product.name}
                   className={`store-product-card ${expandedProduct === product.name ? 'store-product-card--expanded' : ''}`}
-                  onClick={() => product.options && setExpandedProduct((currentProduct) =>
-                    currentProduct === product.name ? '' : product.name,
-                  )}
+                  onClick={() => setSelectedModalProduct(product)}
                 >
                   {product.showImage ? (
                     <div className="store-product-card__image">
@@ -737,6 +754,34 @@ export default function Ecommerce({ onLogout }) {
           </section>
         </>
       )}
+
+      {selectedModalProduct ? (
+        <div
+          className="store-product-modal"
+          role="presentation"
+          onClick={() => setSelectedModalProduct(null)}
+        >
+          <section
+            className="store-product-modal__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="product-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="store-product-modal__close"
+              aria-label="Fechar modal"
+              onClick={() => setSelectedModalProduct(null)}
+            >
+              x
+            </button>
+            <span>{selectedModalProduct.category}</span>
+            <h3 id="product-modal-title">{selectedModalProduct.name}</h3>
+            <p>{selectedModalProduct.description}</p>
+          </section>
+        </div>
+      ) : null}
     </main>
   );
 }
