@@ -9,9 +9,16 @@ import CardCoroaColaPremium from "../assets/Catalogo/card_coroacola_premium.png"
 import CardSabores from "../assets/Catalogo/card_sabores.png";
 import CardFrish from "../assets/Catalogo/card_frish.png";
 import CardTampico from "../assets/Catalogo/card_tampico.png";
-import CardKlass from "../assets/Catalogo/card_klass.png";
+import CardKlas from "../assets/Catalogo/card_klas.png";
+import CardIate from "../assets/Catalogo/card_iate.png";
+import CampinhoTonica from "../assets/Catalogo/card_campinho_tonica.png";
+import CampinhoPremium from "../assets/Catalogo/card_premium.png";
+import CardCoroaBeer from "../assets/Catalogo/card_coroa_beer.png";
+import CardArtesanais from "../assets/Catalogo/card_artesanais.png";
+import CardLafruit from "../assets/Catalogo/card_lafruit.png";
 
 const ecommerceProducts = [
+  // card 01 Guarana Coroa
   {
     name: 'Guaraná Coroa',
     description: 'Linha Completa de Refrigerantes Sabor Guaraná.',
@@ -25,16 +32,7 @@ const ecommerceProducts = [
       types: ['Normal', 'Zero'],
     },
   },
-
-  {
-    name: 'Linha Campinho',
-    description: 'Produtos em destaque para ofertas comerciais.',
-    price: 'R$ 96,40',
-    image: CardCampinho,
-    showImage: true,
-    icon: 'drop',
-    category: 'Aguas',
-  },
+  // card 02 Coroa Cola Premium
   {
     name: 'Linha Coroa Cola Premium',
     description: 'Embalagens para abastecimento recorrente.',
@@ -44,16 +42,7 @@ const ecommerceProducts = [
     icon: 'barrel',
     category: 'Refrigerantes',
   },
-
-  {
-    name: 'Linha Coroa Sabores',
-    description: 'Combinacao pratica para reposicao de refrigerantes.',
-    price: 'R$ 156,80',
-    image: CardSabores,
-    showImage: true,
-    icon: 'bubbles',
-    category: 'Refrigerantes',
-  },
+  // card 03 linha Bad Wolf
   {
     name: 'Linha Bad Wolf',
     description: 'Energeticos para campanhas e oportunidades.',
@@ -63,7 +52,19 @@ const ecommerceProducts = [
     icon: 'bolt',
     category: 'Energeticos',
   },
+  
+  // card 04 Linha Coroa Sabores
   {
+    name: 'Linha Coroa Sabores',
+    description: 'Combinacao pratica para reposicao de refrigerantes.',
+    price: 'R$ 156,80',
+    image: CardSabores,
+    showImage: true,
+    icon: 'bubbles',
+    category: 'Refrigerantes',
+  },
+  // card 05 Linha Frish
+   {
     name: 'Linha Frish',
     description: 'Selecao de energeticos para giro em campanhas.',
     price: 'R$ 188,40',
@@ -72,56 +73,96 @@ const ecommerceProducts = [
     icon: 'bolt',
     category: 'Refrigerantes',
   },
+  // card 06 Linha Iate
   {
-    name: 'Linha Tampico',
+    name: 'Linha Iate',
+    description: 'Selecao de energeticos para giro em campanhas.',
+    price: 'R$ 188,40',
+    image: CardIate,
+    showImage: true,
+    icon: 'bolt',
+    category: 'Refrigerantes',
+  },
+   // card 07 Linha Campinho
+  {
+    name: 'Linha Campinho',
+    description: 'Produtos em destaque para ofertas comerciais.',
+    price: 'R$ 96,40',
+    image: CardCampinho,
+    showImage: true,
+    icon: 'drop',
+    category: 'Aguas',
+  },
+ // card 08 Lemon e Tônica
+  {
+    name: 'Linha Lemon e Tônica',
     description: 'Opcoes leves para abastecimento diario do ponto.',
     price: 'R$ 82,90',
-    image: CardTampico,
+    image: CampinhoTonica,
     showImage: true,
     icon: 'drop',
     category: 'Sucos',
   },
+  // 09Campinho Premium
+   {
+    name: 'Linha Campinho Premium',
+    description: 'Opcoes leves para abastecimento diario do ponto.',
+    price: 'R$ 82,90',
+    image:CampinhoPremium,
+    showImage: true,
+    icon: 'drop',
+    category: 'Sucos',
+  },
+  // 10 Linha Agua Klass
   {
     name: 'Linha Agua Klass',
     description: 'Rotulos especiais para clientes de maior valor.',
     price: 'R$ 219,70',
-    image: CardKlass,
+    image: CardKlas,
     showImage: true,
     icon: 'barrel',
     category: 'Aguas',
   },
+  // card 11 Coroa Beer
   {
-    name: 'Combo Promocional',
+    name: 'Coroa Beer',
     description: 'Mix estrategico para montar ofertas comerciais.',
     price: 'R$ 132,60',
-    // image: kitRefri,
+    image: CardCoroaBeer,
+    showImage: true,
     icon: 'cart',
-    category: 'Refrigerantes',
+    category: 'Artesanais',
   },
+  // card 12 teresense
   {
-    name: 'Reposicao Express',
+    name: 'Cerveja Teresense',
     description: 'Produtos selecionados para pedidos recorrentes.',
     price: 'R$ 164,30',
-    // image: KitBw,
+    image: CardArtesanais,
+    showImage: true,
     icon: 'chart',
-    category: 'Energeticos',
+    category: 'Artesanais',
   },
+  // card 13 Linha La Fuit
   {
-    name: 'Selecao Ponto Alto',
+    name: 'Linha La Fuit',
     description: 'Mix premium para pontos com maior volume de venda.',
     price: 'R$ 246,90',
-    // image: KitTeresense,
+    image: CardLafruit,
+    showImage: true,
     icon: 'barrel',
     category: 'Artesanais',
   },
+  // Linha Tampico
   {
     name: 'Combo Giro Rapido',
     description: 'Itens campeoes para acelerar a reposicao da loja.',
     price: 'R$ 118,50',
-    image: CardCampinho,
+    image: CardTampico,
+    showImage: true,
     icon: 'cart',
     category: 'Sucos',
-  },
+  }
 ];
 
 const categories = ['Todas', 'Energeticos', 'Sucos', 'Refrigerantes', 'Artesanais', 'Aguas'];
