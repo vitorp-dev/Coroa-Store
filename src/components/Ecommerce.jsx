@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import bgProdutos from '../assets/ImgProduto/bg_produtos.png';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
@@ -16,6 +16,7 @@ import CampinhoPremium from "../assets/Catalogo/card_premium.png";
 import CardCoroaBeer from "../assets/Catalogo/card_coroa_beer.png";
 import CardArtesanais from "../assets/Catalogo/card_artesanais.png";
 import CardLafruit from "../assets/Catalogo/card_lafruit.png";
+import heroVideo from '../assets/videos/bg.mp4';
 
 const ecommerceProducts = [
   // card 01 Guarana Coroa
@@ -27,10 +28,6 @@ const ecommerceProducts = [
     showImage: true,
     icon: 'bubbles',
     category: 'Refrigerantes',
-    options: {
-      sizes: ['250ml', '350ml', '600ml', '1L', '2L', '1,5L'],
-      types: ['Normal', 'Zero'],
-    },
   },
   // card 02 Coroa Cola Premium
   {
@@ -259,6 +256,7 @@ function StoreIcon({ type }) {
 }
 
 export default function Ecommerce({ onLogout }) {
+  const heroVideoRef = useRef(null);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [cartItems, setCartItems] = useState([]);
@@ -277,6 +275,31 @@ export default function Ecommerce({ onLogout }) {
   const filteredProducts = selectedCategory === 'Todas'
     ? ecommerceProducts
     : ecommerceProducts.filter((product) => product.category === selectedCategory);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+
+    if (!video) {
+      return undefined;
+    }
+
+    video.playbackRate = 0.72;
+
+    function keepLoopSeamless() {
+      if (!video.duration || video.duration - video.currentTime > 0.12) {
+        return;
+      }
+
+      video.currentTime = 0.04;
+      void video.play();
+    }
+
+    video.addEventListener('timeupdate', keepLoopSeamless);
+
+    return () => {
+      video.removeEventListener('timeupdate', keepLoopSeamless);
+    };
+  }, []);
 
   function getProductCartKey(product) {
     return product.cartKey || product.name;
@@ -479,6 +502,15 @@ export default function Ecommerce({ onLogout }) {
       ) : (
         <>
           <section className="store-hero" aria-labelledby="store-title">
+            <video
+              ref={heroVideoRef}
+              className="store-hero__video"
+              src={heroVideo}
+              autoPlay
+              muted
+              playsInline
+              aria-hidden="true"
+            />
             <div className="store-hero__content">
               <span className="store-eyebrow">Acesso Restrito</span>
               <h1 id="store-title">
@@ -569,6 +601,7 @@ export default function Ecommerce({ onLogout }) {
                   )}
                   <div className="store-product-card__body">
                     <div>
+                      <small className="store-product-card__category">{product.category}</small>
                       <strong>{product.name}</strong>
                       <span>{product.description}</span>
                     </div>
