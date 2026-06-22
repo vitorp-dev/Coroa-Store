@@ -3,7 +3,7 @@ import kitRefri from '../assets/ImgProduto/kit_refri.png';
 import KitBw from '../assets/ImgProduto/kit_bw.png';
 import kitCampinho from '../assets/ImgProduto/kit_campinho.png';
 import KitTeresense from '../assets/ImgProduto/kit_teresense.png';
-import bgProdutos from '../assets/ImgProduto/bg_produtos.png';
+import bgProdutos from '../assets/ImgProduto/kit_refri.png';
 
 const productImages = import.meta.glob('../assets/ImgProduto/*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -50,7 +50,7 @@ const productList = Object.entries(productImages).map(([path, image]) => ({
 
 export default function Produtos() {
   const extraProducts = productList.filter(
-    (product) => !['Bg Produtos', 'Kit Coroa Cola', 'Kit Refri', 'Kit Bw', 'Kit Campinho', 'Kit Teresense', 'Bw Original'].includes(product.name),
+    (product) => !['Bg Produtos', 'Icon Guarana', 'Kit Coroa Cola', 'Kit Refri', 'Kit Bw', 'Kit Campinho', 'Kit Teresense', 'Bw Original'].includes(product.name),
   );
   const products = [...fallbackProducts, ...extraProducts];
 

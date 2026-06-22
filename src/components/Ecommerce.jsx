@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import bgProdutos from '../assets/ImgProduto/bg_produtos.png';
+import iconGuarana from '../assets/Icones/icon_guarana.png';
+import iconSemAcucar from '../assets/Icones/icon_sem_acucar.png';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
+import pet2LImage from '../assets/Individuais/pet_2L.png';
+import LataZeroImage from '../assets/Individuais/lata_zero350ml.png';
+import PetZeroImage from '../assets/Individuais/guarana_pet_zero.png';
+import pet25LImage from '../assets/Individuais/pet_2,5L.png';
+import pet250mlImage from '../assets/Individuais/pet _250ml.png';
+import pet600mlImage from '../assets/Individuais/pet_600ml.png';
+import lata350mlImage from '../assets/Individuais/lata_350ml.png';
+import pet15LImage from '../assets/Individuais/pet_1,5L.png';
 import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
 import CardCampinho from "../assets/Catalogo/card_campinho.png";
@@ -162,6 +172,20 @@ const ecommerceProducts = [
   }
 ];
 
+const guaranaTraditionalOptions = [
+  'PET 250ML',
+  'PET 600ML',
+  'PET 1,5L',
+  'PET 2L',
+  'PET 2,5L',
+  'LATA 350ML',
+];
+
+const guaranaZeroOptions = [
+  'LATA 350ML',
+  'PET 2L ZERO'
+];
+
 const categories = ['Todas', 'Energeticos', 'Sucos', 'Refrigerantes', 'Artesanais', 'Aguas'];
 
 function parseCurrency(price) {
@@ -247,6 +271,37 @@ function StoreIcon({ type }) {
     );
   }
 
+  if (type === 'bottle') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10 3h4" />
+        <path d="M10.5 3.5v4.1c0 .6-.2 1.1-.6 1.5l-.8.9c-.5.6-.8 1.3-.8 2.1V20c0 .8.7 1.5 1.5 1.5h4.4c.8 0 1.5-.7 1.5-1.5v-7.9c0-.8-.3-1.5-.8-2.1l-.8-.9c-.4-.4-.6-.9-.6-1.5V3.5" />
+        <path d="M8.5 15h7" />
+      </svg>
+    );
+  }
+
+  if (type === 'bottle-600') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M11 2.5h2" />
+        <path d="M10.8 4.5h2.4" />
+        <path d="M11 4.5v3.2c0 .6-.2 1.1-.6 1.5l-.9.9a2.6 2.6 0 0 0-.7 1.8v7.4c0 1 .8 1.8 1.8 1.8h2.8c1 0 1.8-.8 1.8-1.8v-7.4c0-.7-.3-1.3-.7-1.8l-.9-.9a2.2 2.2 0 0 1-.6-1.5V4.5" />
+        <path d="M9.2 14.2h5.6" />
+      </svg>
+    );
+  }
+
+  if (type === 'can') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8.5 5.5c0-1 1.6-1.8 3.5-1.8s3.5.8 3.5 1.8v13c0 1-1.6 1.8-3.5 1.8s-3.5-.8-3.5-1.8Z" />
+        <path d="M8.5 5.5c0 1 1.6 1.8 3.5 1.8s3.5-.8 3.5-1.8" />
+        <path d="M9.5 15.5h5" />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M5 5h14v14H5Z" />
@@ -255,8 +310,18 @@ function StoreIcon({ type }) {
   );
 }
 
+function getPackageIcon(option) {
+  if (option === 'PET 600ML') {
+    return 'bottle-600';
+  }
+
+  return option.includes('LATA') ? 'can' : 'bottle';
+}
+
 export default function Ecommerce({ onLogout }) {
-  const heroVideoRef = useRef(null);
+  const heroVideoRefs = useRef([]);
+  const activeHeroVideoIndexRef = useRef(0);
+  const [activeHeroVideoIndex, setActiveHeroVideoIndex] = useState(0);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [cartItems, setCartItems] = useState([]);
@@ -264,6 +329,10 @@ export default function Ecommerce({ onLogout }) {
   const [currentScreen, setCurrentScreen] = useState('catalogo');
   const [expandedProduct, setExpandedProduct] = useState('');
   const [selectedModalProduct, setSelectedModalProduct] = useState(null);
+  const [selectedModalOptions, setSelectedModalOptions] = useState([guaranaTraditionalOptions[0]]);
+  const [modalOptionQuantities, setModalOptionQuantities] = useState({
+    [guaranaTraditionalOptions[0]]: 1,
+  });
   const [productOptions, setProductOptions] = useState({
     'Guaraná Coroa': { size: '250ml', type: 'Normal' },
   });
@@ -276,29 +345,86 @@ export default function Ecommerce({ onLogout }) {
   const filteredProducts = selectedCategory === 'Todas'
     ? ecommerceProducts
     : ecommerceProducts.filter((product) => product.category === selectedCategory);
+  const isGuaranaModal = selectedModalProduct?.image === cardGuarana;
+  const modalTotalQuantity = selectedModalOptions.reduce(
+    (total, option) => total + (modalOptionQuantities[option] || 0),
+    0,
+  );
+  const modalUnitPrice = selectedModalProduct ? parseCurrency(selectedModalProduct.price) : 0;
+  const modalTotalValue = modalTotalQuantity * modalUnitPrice;
+  const getGuaranaOptionImage = (option) => {
+    if (option === 'PET 2L') return pet2LImage;
+    if (option === 'PET 2,5L') return pet25LImage;
+    if (option === 'PET 250ML') return pet250mlImage;
+    if (option === 'PET 600ML') return pet600mlImage;
+    if (option === 'LATA 350ML') return lata350mlImage;
+    if (option === 'PET 1,5L') return pet15LImage;
+    if (option === 'LATA ZERO') return LataZeroImage;
+    if (option === 'PET 2L ZERO') return PetZeroImage;
+
+    return cardGuarana;
+  };
+  
 
   useEffect(() => {
-    const video = heroVideoRef.current;
+    const videos = heroVideoRefs.current.filter(Boolean);
 
-    if (!video) {
+    if (videos.length < 2) {
       return undefined;
     }
 
-    video.playbackRate = 0.72;
+    const playbackRate = 0.72;
+    const overlapSeconds = 0.9;
+    let frameId;
+    let isSwitching = false;
 
-    function keepLoopSeamless() {
-      if (!video.duration || video.duration - video.currentTime > 0.12) {
-        return;
+    videos.forEach((video, index) => {
+      video.playbackRate = playbackRate;
+      video.currentTime = 0;
+
+      if (index === 0) {
+        void video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    function monitorHeroLoop() {
+      const currentIndex = activeHeroVideoIndexRef.current;
+      const currentVideo = videos[currentIndex];
+
+      if (
+        currentVideo?.duration
+        && currentVideo.duration - currentVideo.currentTime <= overlapSeconds
+        && !isSwitching
+      ) {
+        const nextIndex = currentIndex === 0 ? 1 : 0;
+        const nextVideo = videos[nextIndex];
+
+        isSwitching = true;
+        nextVideo.currentTime = 0;
+        nextVideo.playbackRate = playbackRate;
+        void nextVideo.play();
+        activeHeroVideoIndexRef.current = nextIndex;
+        setActiveHeroVideoIndex(nextIndex);
+
+        window.setTimeout(() => {
+          currentVideo.pause();
+          currentVideo.currentTime = 0;
+          isSwitching = false;
+        }, overlapSeconds * 1000);
       }
 
-      video.currentTime = 0.04;
-      void video.play();
+      frameId = window.requestAnimationFrame(monitorHeroLoop);
     }
 
-    video.addEventListener('timeupdate', keepLoopSeamless);
+    frameId = window.requestAnimationFrame(monitorHeroLoop);
 
     return () => {
-      video.removeEventListener('timeupdate', keepLoopSeamless);
+      window.cancelAnimationFrame(frameId);
+      videos.forEach((video) => {
+        video.pause();
+      });
     };
   }, []);
 
@@ -306,6 +432,9 @@ export default function Ecommerce({ onLogout }) {
     if (!selectedModalProduct) {
       return undefined;
     }
+
+    const previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
     function closeModalOnEscape(event) {
       if (event.key === 'Escape') {
@@ -316,6 +445,7 @@ export default function Ecommerce({ onLogout }) {
     window.addEventListener('keydown', closeModalOnEscape);
 
     return () => {
+      document.body.style.overflow = previousBodyOverflow;
       window.removeEventListener('keydown', closeModalOnEscape);
     };
   }, [selectedModalProduct]);
@@ -355,6 +485,86 @@ export default function Ecommerce({ onLogout }) {
       selectedSize: selectedOptions.size,
       selectedType: selectedOptions.type,
     });
+  }
+
+  function addModalProductToCart() {
+    if (!selectedModalProduct) {
+      return;
+    }
+
+    if (isGuaranaModal) {
+      if (!selectedModalOptions.length) {
+        return;
+      }
+
+      selectedModalOptions.forEach((selectedOption) => {
+        const optionQuantity = modalOptionQuantities[selectedOption] || 1;
+
+        for (let count = 0; count < optionQuantity; count++) {
+          addToCart({
+            ...selectedModalProduct,
+            name: `${selectedModalProduct.name} - ${selectedOption}`,
+            cartKey: `${selectedModalProduct.name}-${selectedOption}`,
+            selectedOption,
+          });
+        }
+      });
+    } else if (selectedModalProduct.options) {
+      addProductWithOptions(selectedModalProduct);
+    } else {
+      addToCart(selectedModalProduct);
+    }
+
+    setSelectedModalProduct(null);
+    requestAnimationFrame(() => {
+      document.getElementById('carrinho')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
+  function toggleModalOption(option) {
+    setSelectedModalOptions((currentOptions) => {
+      if (currentOptions.includes(option)) {
+        setModalOptionQuantities((currentQuantities) => {
+          const nextQuantities = { ...currentQuantities };
+          delete nextQuantities[option];
+          return nextQuantities;
+        });
+
+        return currentOptions.filter((currentOption) => currentOption !== option);
+      }
+
+      setModalOptionQuantities((currentQuantities) => ({
+        ...currentQuantities,
+        [option]: currentQuantities[option] || 1,
+      }));
+
+      return [...currentOptions, option];
+    });
+  }
+
+  function updateModalOptionQuantity(option, change) {
+    setModalOptionQuantities((currentQuantities) => {
+      const currentQuantity = currentQuantities[option] || 0;
+      const nextQuantity = Math.max(0, currentQuantity + change);
+      const nextQuantities = { ...currentQuantities };
+
+      if (nextQuantity === 0) {
+        delete nextQuantities[option];
+      } else {
+        nextQuantities[option] = nextQuantity;
+      }
+
+      setSelectedModalOptions(Object.keys(nextQuantities));
+      return nextQuantities;
+    });
+  }
+
+  function clearModalOptions() {
+    setSelectedModalOptions([]);
+    setModalOptionQuantities({});
   }
 
   function updateProductOption(productName, optionName, value) {
@@ -405,6 +615,16 @@ export default function Ecommerce({ onLogout }) {
     });
   }
 
+  function goToCatalog() {
+    setCurrentScreen('catalogo');
+    requestAnimationFrame(() => {
+      document.getElementById('catalogo')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
   return (
     <main
       className="store-page"
@@ -422,7 +642,7 @@ export default function Ecommerce({ onLogout }) {
           <button
             type="button"
             className={`store-nav__link ${currentScreen === 'catalogo' ? 'store-nav__link--active' : ''}`}
-            onClick={() => setCurrentScreen('catalogo')}
+            onClick={goToCatalog}
           >
             Catalogo
           </button>
@@ -521,62 +741,32 @@ export default function Ecommerce({ onLogout }) {
       ) : (
         <>
           <section className="store-hero" aria-labelledby="store-title">
-            <video
-              ref={heroVideoRef}
-              className="store-hero__video"
-              src={heroVideo}
-              autoPlay
-              muted
-              playsInline
-              aria-hidden="true"
-            />
-            <div className="store-hero__content">
-              <span className="store-eyebrow">Acesso Restrito</span>
-              <h1 id="store-title">
-                Monte pedidos com <span>Autonomia e Segurança.</span>
-              </h1>
-
-              <div className="store-hero__features" aria-label="Recursos da plataforma">
-                <article>
-                  <StoreIcon type="catalog" />
-                  <div>
-                    <strong>Catalogo completo</strong>
-                    <span>Explore nossos produtos</span>
-                  </div>
-                </article>
-                <article>
-                  <StoreIcon type="cart" />
-                  <div>
-                    <strong>Adicione seus itens</strong>
-                    <span>Monte seu pedido</span>
-                  </div>
-                </article>
-                <article>
-                  <StoreIcon type="chart" />
-                  <div>
-                    <strong>Acompanhe tudo</strong>
-                    <span>Resumo e historico</span>
-                  </div>
-                </article>
+            {[0, 1].map((index) => (
+              <video
+                key={index}
+                ref={(element) => {
+                  heroVideoRefs.current[index] = element;
+                }}
+                className={`store-hero__video${activeHeroVideoIndex === index ? ' is-active' : ''}`}
+                src={heroVideo}
+                autoPlay={index === 0}
+                muted
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+              />
+            ))}
+              <div className="store-hero__content">
+                <h1 id="store-title">
+                  <span className="store-hero__line">Crie e Gerencie</span>
+                  <span className="store-hero__line"> seus pedidos com</span>
+                  <span className="store-hero__line store-hero__line--accent">
+                     Autonomia e Segurança.
+                  </span>
+                </h1>
               </div>
-            </div>
 
-            <div className="store-hero__media" aria-hidden="true">
-              <img src={bgProdutos} alt="" />
-            </div>
-
-            <aside className="store-summary" id="resumo" aria-label="Resumo do pedido">
-              <span>Resumo do pedido</span>
-              <small>Total estimado</small>
-              <strong>{formatCurrency(cartTotal)}</strong>
-              <small>{cartQuantity} item(ns) no carrinho</small>
-              <a href="#carrinho">
-                Ver carrinho
-                <span aria-hidden="true">-&gt;</span>
-              </a>
-              <small>Ambiente seguro e confiavel</small>
-            </aside>
-          </section>
+              </section>
 
           <section id="catalogo" className="store-catalog" aria-labelledby="catalog-title">
             <div className="store-section-heading">
@@ -660,24 +850,14 @@ export default function Ecommerce({ onLogout }) {
                     ) : null}
 
                     <div className="store-product-card__footer">
-                      <div>
-                        <small>A partir de</small>
-                        <span>{product.price}</span>
-                      </div>
                       <button
                         type="button"
                         onClick={(event) => {
                           event.stopPropagation();
-                          if (product.options) {
-                            addProductWithOptions(product);
-                            return;
-                          }
-
-                          addToCart(product);
+                          setSelectedModalProduct(product);
                         }}
                       >
-                        <StoreIcon type="cart" />
-                        Adicionar
+                        Selecionar Opções
                       </button>
                     </div>
                   </div>
@@ -762,7 +942,7 @@ export default function Ecommerce({ onLogout }) {
           onClick={() => setSelectedModalProduct(null)}
         >
           <section
-            className="store-product-modal__dialog"
+            className={`store-product-modal__dialog${isGuaranaModal ? ' store-product-modal__dialog--guarana' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="product-modal-title"
@@ -776,9 +956,186 @@ export default function Ecommerce({ onLogout }) {
             >
               x
             </button>
-            <span>{selectedModalProduct.category}</span>
-            <h3 id="product-modal-title">{selectedModalProduct.name}</h3>
-            <p>{selectedModalProduct.description}</p>
+            {isGuaranaModal ? (
+              <>
+                <div className="store-product-modal__hero">
+                  <div>
+                    {/* <span>{selectedModalProduct.category}</span> */}
+                    <h3 id="product-modal-title">{selectedModalProduct.name}</h3>
+                  </div>
+                  <div className="store-product-modal__brand">
+                    <img src={iconGuarana} alt="" />
+                  </div>
+                </div>
+
+                <div className="store-product-modal__options" aria-label="Opcoes do Guarana Coroa">
+                  <div className="store-product-modal__selection-layout">
+                    <div className="store-product-modal__selection-list">
+                      <section className="store-product-modal__option-section">
+                    <div className="store-product-modal__section-heading">
+                      <span className="store-product-modal__section-icon">
+                        <img src={iconGuarana} alt="" />
+                      </span>
+                      <div>
+                        <span>Linha tradicional</span>
+                        <small>Formatos para consumo individual, familia e abastecimento.</small>
+                      </div>
+                      <mark>Mais escolhida</mark>
+                    </div>
+                    <div className="store-product-modal__pack-grid">
+                      {guaranaTraditionalOptions.map((option) => {
+                        const optionQuantity = modalOptionQuantities[option] || 0;
+                        const isSelected = optionQuantity > 0;
+
+                        return (
+                          <article
+                            key={option}
+                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}`}
+                          >
+                            <button
+                              type="button"
+                              className="store-product-modal__pack-select"
+                              aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${option}`}
+                              onClick={() => toggleModalOption(option)}
+                            >
+                              {isSelected ? '✓' : ''}
+                            </button>
+                            <img src={getGuaranaOptionImage(option)} alt="" />
+                            <strong>{option}</strong>
+                            <div className="store-product-modal__quantity" aria-label={`Quantidade de ${option}`}>
+                              <button
+                                type="button"
+                                onClick={() => updateModalOptionQuantity(option, -1)}
+                              >
+                                -
+                              </button>
+                              <span>{optionQuantity}</span>
+                              <button
+                                type="button"
+                                onClick={() => updateModalOptionQuantity(option, 1)}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                      </section>
+
+                      <section className="store-product-modal__option-section store-product-modal__option-section--zero">
+                    <div className="store-product-modal__section-heading">
+                      <span className="store-product-modal__section-icon">
+                        <img src={iconSemAcucar} alt="" />
+                      </span>
+                      <div>
+                        <span>Zero açúcar</span>
+                        <small>Opções zero para clientes que buscam leveza no mix.</small>
+                      </div>
+                    </div>
+                    <div className="store-product-modal__pack-grid store-product-modal__pack-grid--zero">
+                      {guaranaZeroOptions.map((option) => {
+                        const optionLabel = `ZERO ${option}`;
+                        const optionQuantity = modalOptionQuantities[optionLabel] || 0;
+                        const isSelected = optionQuantity > 0;
+
+                        return (
+                          <article
+                            key={optionLabel}
+                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}`}
+                          >
+                            <button
+                              type="button"
+                              className="store-product-modal__pack-select"
+                              aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${optionLabel}`}
+                              onClick={() => toggleModalOption(optionLabel)}
+                            >
+                              {isSelected ? '✓' : ''}
+                            </button>
+                            <img
+                              src={option === 'LATA 350ML' ? LataZeroImage : PetZeroImage}
+                              alt=""
+                            />
+                            <strong>{option}</strong>
+                            <div className="store-product-modal__quantity" aria-label={`Quantidade de ${optionLabel}`}>
+                              <button
+                                type="button"
+                                onClick={() => updateModalOptionQuantity(optionLabel, -1)}
+                              >
+                                -
+                              </button>
+                              <span>{optionQuantity}</span>
+                              <button
+                                type="button"
+                                onClick={() => updateModalOptionQuantity(optionLabel, 1)}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                      </section>
+                    </div>
+
+                    <aside className="store-product-modal__order-preview" aria-label="Detalhes do pedido">
+                      <span>Detalhes do pedido</span>
+                      <strong>{formatCurrency(modalTotalValue)}</strong>
+                      <small>{modalTotalQuantity} unidade(s) selecionada(s)</small>
+
+                      <div className="store-product-modal__order-lines">
+                        {selectedModalOptions.length ? (
+                          selectedModalOptions.map((option) => {
+                            const optionQuantity = modalOptionQuantities[option] || 0;
+
+                            return (
+                              <div key={option}>
+                                <span>{option}</span>
+                                <strong>
+                                  {optionQuantity} x {formatCurrency(modalUnitPrice)}
+                                </strong>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <p>Selecione uma embalagem para visualizar o valor do pedido.</p>
+                        )}
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+
+                <div className="store-product-modal__actions">
+                  <button
+                    type="button"
+                    className="store-product-modal__back"
+                    onClick={() => setSelectedModalProduct(null)}
+                  >
+                    Voltar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={addModalProductToCart}
+                    disabled={!selectedModalOptions.length}
+                  >
+                    <StoreIcon type="cart" />
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <span>{selectedModalProduct.category}</span>
+                <h3 id="product-modal-title">{selectedModalProduct.name}</h3>
+                <p>{selectedModalProduct.description}</p>
+                <div className="store-product-modal__actions">
+                  <button type="button" onClick={addModalProductToCart}>
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+              </>
+            )}
           </section>
         </div>
       ) : null}
