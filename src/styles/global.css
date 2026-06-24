@@ -2077,6 +2077,16 @@ a {
   height: 112px;
 }
 
+.store-product-modal__dialog--campinho .store-product-modal__brand img {
+  width: min(100%, 210px);
+  height: 112px;
+}
+
+.store-product-modal__dialog--lemon-tonica .store-product-modal__brand img {
+  width: min(100%, 210px);
+  height: 112px;
+}
+
 .store-product-modal__brand strong {
   position: relative;
   color: #064e3b;

@@ -56,6 +56,16 @@ import IateLimaoPet250Image from '../assets/Individuais/Iate/Limao/pet250.png';
 import IateLimaoPet2Image from '../assets/Individuais/Iate/Limao/pet2.png';
 import IateUvaPet250Image from '../assets/Individuais/Iate/Uva/pet250.png';
 import IateUvaPet2Image from '../assets/Individuais/Iate/Uva/pet2.png';
+import CampinhoNaturalPet500Image from '../assets/Individuais/LinhaCampinho/Natual/pet500.png';
+import CampinhoNaturalCopo200Image from '../assets/Individuais/LinhaCampinho/Natual/copo200.png';
+import CampinhoNaturalPet15Image from '../assets/Individuais/LinhaCampinho/Natual/pet1,5.png';
+import CampinhoNaturalPet25Image from '../assets/Individuais/LinhaCampinho/Natual/pet2,5.png';
+import CampinhoNaturalPet5Image from '../assets/Individuais/LinhaCampinho/Natual/pet5.png';
+import CampinhoGaseificadaPet500Image from '../assets/Individuais/LinhaCampinho/Gaseificada/pet500.png';
+import CampinhoGaseificadaPet15Image from '../assets/Individuais/LinhaCampinho/Gaseificada/pet1,5.png';
+import LemonTonicaLemonPet500Image from '../assets/Individuais/LemonTonica/lemon500.png';
+import LemonTonicaTonicaLata350Image from '../assets/Individuais/LemonTonica/lata_tonica350.png';
+import LemonTonicaTonicaPet600Image from '../assets/Individuais/LemonTonica/pet_tonica600.png';
 // imports Catálogo
 import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
@@ -289,6 +299,28 @@ const iateFlavorCategories = [
   'Uva',
 ];
 
+const campinhoNaturalOptions = [
+  'PET 500ML',
+  'COPO 200ML',
+  'PET 1,5L',
+  'PET 2,5L',
+  'PET 5L',
+];
+
+const campinhoGaseificadaOptions = [
+  'PET 500ML',
+  'PET 1,5L',
+];
+
+const lemonTonicaLemonOptions = [
+  'PET 500ML',
+];
+
+const lemonTonicaTonicaOptions = [
+  'LATA 350ML',
+  'PET 600ML',
+];
+
 const badWolfFlavorCategories = [
   'Original',
   'Maçã verde',
@@ -450,6 +482,16 @@ function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Iate Limão') && option.includes('PET 2L')) return IateLimaoPet2Image;
   if (option.includes('Iate Uva') && option.includes('PET 250ML')) return IateUvaPet250Image;
   if (option.includes('Iate Uva') && option.includes('PET 2L')) return IateUvaPet2Image;
+  if (option.includes('Campinho Natural') && option.includes('PET 500ML')) return CampinhoNaturalPet500Image;
+  if (option.includes('Campinho Natural') && option.includes('COPO 200ML')) return CampinhoNaturalCopo200Image;
+  if (option.includes('Campinho Natural') && option.includes('PET 1,5L')) return CampinhoNaturalPet15Image;
+  if (option.includes('Campinho Natural') && option.includes('PET 2,5L')) return CampinhoNaturalPet25Image;
+  if (option.includes('Campinho Natural') && option.includes('PET 5L')) return CampinhoNaturalPet5Image;
+  if (option.includes('Campinho Gaseificada') && option.includes('PET 500ML')) return CampinhoGaseificadaPet500Image;
+  if (option.includes('Campinho Gaseificada') && option.includes('PET 1,5L')) return CampinhoGaseificadaPet15Image;
+  if (option.includes('Lemon e Tônica Lemon') && option.includes('PET 500ML')) return LemonTonicaLemonPet500Image;
+  if (option.includes('Lemon e Tônica Tônica') && option.includes('LATA 350ML')) return LemonTonicaTonicaLata350Image;
+  if (option.includes('Lemon e Tônica Tônica') && option.includes('PET 600ML')) return LemonTonicaTonicaPet600Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
@@ -619,6 +661,70 @@ function getModalMixConfig(product) {
     };
   }
 
+  if (product.image === CardCampinho) {
+    const sections = [
+      {
+        title: 'Natural',
+        description: 'Opções de água natural para montar o mix da linha Campinho.',
+        icon: CardCampinho,
+        options: campinhoNaturalOptions.map((option) => ({
+          label: option,
+          value: `Campinho Natural - ${option}`,
+        })),
+      },
+      {
+        title: 'Gaseificada',
+        description: 'Opções de água gaseificada para montar o mix da linha Campinho.',
+        icon: CardCampinho,
+        options: campinhoGaseificadaOptions.map((option) => ({
+          label: option,
+          value: `Campinho Gaseificada - ${option}`,
+        })),
+      },
+    ];
+
+    return {
+      brandImage: CardCampinho,
+      fallbackImage: CardCampinho,
+      ariaLabel: 'Opcoes da Linha Campinho',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
+  if (product.image === CampinhoTonica) {
+    const sections = [
+      {
+        title: 'Lemon',
+        description: 'Opção PET 500ML para montar o mix da linha Lemon.',
+        icon: CampinhoTonica,
+        options: lemonTonicaLemonOptions.map((option) => ({
+          label: option,
+          value: `Lemon e Tônica Lemon - ${option}`,
+        })),
+      },
+      {
+        title: 'Tônica',
+        description: 'Opções lata e PET para montar o mix da linha Tônica.',
+        icon: CampinhoTonica,
+        options: lemonTonicaTonicaOptions.map((option) => ({
+          label: option,
+          value: `Lemon e Tônica Tônica - ${option}`,
+        })),
+      },
+    ];
+
+    return {
+      brandImage: CampinhoTonica,
+      fallbackImage: CampinhoTonica,
+      ariaLabel: 'Opcoes da Linha Lemon e Tonica',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
   if (product.image === cardBadWolf) {
     const sections = badWolfFlavorCategories.map((flavor) => ({
       title: flavor,
@@ -673,6 +779,8 @@ export default function Ecommerce({ onLogout }) {
   const isCoroaSaboresModal = selectedModalProduct?.image === CardSabores;
   const isFrishModal = selectedModalProduct?.image === CardFrish;
   const isIateModal = selectedModalProduct?.image === CardIate;
+  const isCampinhoModal = selectedModalProduct?.image === CardCampinho;
+  const isLemonTonicaModal = selectedModalProduct?.image === CampinhoTonica;
   const modalTotalQuantity = selectedModalOptions.reduce(
     (total, option) => total + (modalOptionQuantities[option] || 0),
     0,
@@ -1158,7 +1266,7 @@ export default function Ecommerce({ onLogout }) {
           onClick={() => setSelectedModalProduct(null)}
         >
           <section
-            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}${isCoroaSaboresModal ? ' store-product-modal__dialog--coroa-sabores' : ''}${isFrishModal ? ' store-product-modal__dialog--frish' : ''}${isIateModal ? ' store-product-modal__dialog--iate' : ''}`}
+            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}${isCoroaSaboresModal ? ' store-product-modal__dialog--coroa-sabores' : ''}${isFrishModal ? ' store-product-modal__dialog--frish' : ''}${isIateModal ? ' store-product-modal__dialog--iate' : ''}${isCampinhoModal ? ' store-product-modal__dialog--campinho' : ''}${isLemonTonicaModal ? ' store-product-modal__dialog--lemon-tonica' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="product-modal-title"
