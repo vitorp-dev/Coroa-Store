@@ -35,6 +35,27 @@ import BadWolfTropicalLata269Image from '../assets/Individuais/BadWolf/Tropical/
 import BadWolfTropicalLata473Image from '../assets/Individuais/BadWolf/Tropical/lata473.png';
 import BadWolfTropicalPet270Image from '../assets/Individuais/BadWolf/Tropical/pet270.png';
 import BadWolfTropicalPet2Image from '../assets/Individuais/BadWolf/Tropical/pet2.png';
+import CoroaSaboresLaranjaPet250Image from '../assets/Individuais/Sabores/Laranja/pet250.png';
+import CoroaSaboresLaranjaPet2Image from '../assets/Individuais/Sabores/Laranja/pet2l.png';
+import CoroaSaboresLimaoPet250Image from '../assets/Individuais/Sabores/Limao/pet250.png';
+import CoroaSaboresLimaoPet2Image from '../assets/Individuais/Sabores/Limao/pet2.png';
+import CoroaSaboresUvaPet250Image from '../assets/Individuais/Sabores/Uva/pet250.png';
+import CoroaSaboresUvaPet2Image from '../assets/Individuais/Sabores/Uva/pet2.png';
+import FriishColaPet2Image from '../assets/Individuais/Friish/pet_cola.png';
+import FriishGuaranaPet2Image from '../assets/Individuais/Friish/pet_guaraná.png';
+import FriishLaranjaPet2Image from '../assets/Individuais/Friish/pet_laranja.png';
+import FriishLimaoPet2Image from '../assets/Individuais/Friish/pet_limao.png';
+import FriishUvaPet2Image from '../assets/Individuais/Friish/pet_uva.png';
+import IateColaPet250Image from '../assets/Individuais/Iate/Cola/pet250.png';
+import IateColaPet2Image from '../assets/Individuais/Iate/Cola/pet2.png';
+import IateGuaranaPet250Image from '../assets/Individuais/Iate/Guarana/pet250.png';
+import IateGuaranaPet2Image from '../assets/Individuais/Iate/Guarana/pet2.png';
+import IateLaranjaPet250Image from '../assets/Individuais/Iate/Laranja/pet250.png';
+import IateLaranjaPet2Image from '../assets/Individuais/Iate/Laranja/pet2.png';
+import IateLimaoPet250Image from '../assets/Individuais/Iate/Limao/pet250.png';
+import IateLimaoPet2Image from '../assets/Individuais/Iate/Limao/pet2.png';
+import IateUvaPet250Image from '../assets/Individuais/Iate/Uva/pet250.png';
+import IateUvaPet2Image from '../assets/Individuais/Iate/Uva/pet2.png';
 // imports Catálogo
 import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
@@ -96,7 +117,7 @@ const ecommerceProducts = [
   },
   // card 05 Linha Frish
    {
-    name: 'Linha Frish',
+    name: 'Linha Friish',
     description: 'Selecao de energeticos para giro em campanhas.',
     price: 'R$ 188,40',
     image: CardFrish,
@@ -230,6 +251,42 @@ const badWolfPackageOptions = [
   'Lata 473ML',
   'PET 270ML',
   'PET 2L',
+];
+
+const coroaSaboresPackageOptions = [
+  'PET 250ML',
+  'PET 2L',
+];
+
+const coroaSaboresFlavorCategories = [
+  'Laranja',
+  'Limão',
+  'Uva',
+];
+
+const friishPackageOptions = [
+  'PET 2L',
+];
+
+const friishFlavorCategories = [
+  'Cola',
+  'Guaraná',
+  'Laranja',
+  'Limão',
+  'Uva',
+];
+
+const iatePackageOptions = [
+  'PET 250ML',
+  'PET 2L',
+];
+
+const iateFlavorCategories = [
+  'Cola',
+  'Guaraná',
+  'Laranja',
+  'Limão',
+  'Uva',
 ];
 
 const badWolfFlavorCategories = [
@@ -372,6 +429,27 @@ function getPackageIcon(option) {
 }
 
 function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
+  if (option.includes('Coroa Sabores Laranja') && option.includes('PET 250ML')) return CoroaSaboresLaranjaPet250Image;
+  if (option.includes('Coroa Sabores Laranja') && option.includes('PET 2L')) return CoroaSaboresLaranjaPet2Image;
+  if (option.includes('Coroa Sabores Limão') && option.includes('PET 250ML')) return CoroaSaboresLimaoPet250Image;
+  if (option.includes('Coroa Sabores Limão') && option.includes('PET 2L')) return CoroaSaboresLimaoPet2Image;
+  if (option.includes('Coroa Sabores Uva') && option.includes('PET 250ML')) return CoroaSaboresUvaPet250Image;
+  if (option.includes('Coroa Sabores Uva') && option.includes('PET 2L')) return CoroaSaboresUvaPet2Image;
+  if (option.includes('Friish Cola')) return FriishColaPet2Image;
+  if (option.includes('Friish Guaraná')) return FriishGuaranaPet2Image;
+  if (option.includes('Friish Laranja')) return FriishLaranjaPet2Image;
+  if (option.includes('Friish Limão')) return FriishLimaoPet2Image;
+  if (option.includes('Friish Uva')) return FriishUvaPet2Image;
+  if (option.includes('Iate Cola') && option.includes('PET 250ML')) return IateColaPet250Image;
+  if (option.includes('Iate Cola') && option.includes('PET 2L')) return IateColaPet2Image;
+  if (option.includes('Iate Guaraná') && option.includes('PET 250ML')) return IateGuaranaPet250Image;
+  if (option.includes('Iate Guaraná') && option.includes('PET 2L')) return IateGuaranaPet2Image;
+  if (option.includes('Iate Laranja') && option.includes('PET 250ML')) return IateLaranjaPet250Image;
+  if (option.includes('Iate Laranja') && option.includes('PET 2L')) return IateLaranjaPet2Image;
+  if (option.includes('Iate Limão') && option.includes('PET 250ML')) return IateLimaoPet250Image;
+  if (option.includes('Iate Limão') && option.includes('PET 2L')) return IateLimaoPet2Image;
+  if (option.includes('Iate Uva') && option.includes('PET 250ML')) return IateUvaPet250Image;
+  if (option.includes('Iate Uva') && option.includes('PET 2L')) return IateUvaPet2Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
@@ -478,6 +556,69 @@ function getModalMixConfig(product) {
     };
   }
 
+  if (product.image === CardSabores) {
+    const sections = coroaSaboresFlavorCategories.map((flavor) => ({
+      title: flavor,
+      description: 'Opções de embalagem para montar o mix da linha Coroa Sabores.',
+      icon: CardSabores,
+      options: coroaSaboresPackageOptions.map((option) => ({
+        label: option,
+        value: `Coroa Sabores ${flavor} - ${option}`,
+      })),
+    }));
+
+    return {
+      brandImage: CardSabores,
+      fallbackImage: CardSabores,
+      ariaLabel: 'Opcoes da Linha Coroa Sabores',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
+  if (product.image === CardFrish) {
+    const sections = friishFlavorCategories.map((flavor) => ({
+      title: flavor,
+      description: 'Opção PET 2L para montar o mix da linha Frish.',
+      icon: CardFrish,
+      options: friishPackageOptions.map((option) => ({
+        label: option,
+        value: `Friish ${flavor} - ${option}`,
+      })),
+    }));
+
+    return {
+      brandImage: CardFrish,
+      fallbackImage: CardFrish,
+      ariaLabel: 'Opcoes da Linha Friish',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
+  if (product.image === CardIate) {
+    const sections = iateFlavorCategories.map((flavor) => ({
+      title: flavor,
+      description: 'Opções PET 250ML e PET 2L para montar o mix da linha Iate.',
+      icon: CardIate,
+      options: iatePackageOptions.map((option) => ({
+        label: option,
+        value: `Iate ${flavor} - ${option}`,
+      })),
+    }));
+
+    return {
+      brandImage: CardIate,
+      fallbackImage: CardIate,
+      ariaLabel: 'Opcoes da Linha Iate',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
   if (product.image === cardBadWolf) {
     const sections = badWolfFlavorCategories.map((flavor) => ({
       title: flavor,
@@ -512,6 +653,7 @@ export default function Ecommerce({ onLogout }) {
   const [selectedModalProduct, setSelectedModalProduct] = useState(null);
   const [selectedModalOptions, setSelectedModalOptions] = useState([]);
   const [modalOptionQuantities, setModalOptionQuantities] = useState({});
+  const [highlightedModalOption, setHighlightedModalOption] = useState('');
   const [productOptions, setProductOptions] = useState({
     'Guaraná Coroa': { size: '250ml', type: 'Normal' },
   });
@@ -528,6 +670,9 @@ export default function Ecommerce({ onLogout }) {
   const isMixModal = Boolean(modalMixConfig);
   const isCoroaColaPremiumModal = selectedModalProduct?.image === CardCoroaColaPremium;
   const isBadWolfModal = selectedModalProduct?.image === cardBadWolf;
+  const isCoroaSaboresModal = selectedModalProduct?.image === CardSabores;
+  const isFrishModal = selectedModalProduct?.image === CardFrish;
+  const isIateModal = selectedModalProduct?.image === CardIate;
   const modalTotalQuantity = selectedModalOptions.reduce(
     (total, option) => total + (modalOptionQuantities[option] || 0),
     0,
@@ -640,6 +785,7 @@ export default function Ecommerce({ onLogout }) {
       setModalOptionQuantities({});
     }
 
+    setHighlightedModalOption('');
     setSelectedModalProduct(product);
   }
 
@@ -679,6 +825,10 @@ export default function Ecommerce({ onLogout }) {
       setSelectedModalOptions(Object.keys(nextQuantities));
       return nextQuantities;
     });
+  }
+
+  function toggleModalImageHighlight(option) {
+    setHighlightedModalOption((currentOption) => (currentOption === option ? '' : option));
   }
 
   function clearModalOptions() {
@@ -1008,7 +1158,7 @@ export default function Ecommerce({ onLogout }) {
           onClick={() => setSelectedModalProduct(null)}
         >
           <section
-            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}`}
+            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}${isCoroaSaboresModal ? ' store-product-modal__dialog--coroa-sabores' : ''}${isFrishModal ? ' store-product-modal__dialog--frish' : ''}${isIateModal ? ' store-product-modal__dialog--iate' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="product-modal-title"
@@ -1070,7 +1220,7 @@ export default function Ecommerce({ onLogout }) {
                                 return (
                                   <article
                                     key={value}
-                                    className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}`}
+                                    className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === value ? ' is-image-highlighted' : ''}`}
                                   >
                                     <button
                                       type="button"
@@ -1080,7 +1230,16 @@ export default function Ecommerce({ onLogout }) {
                                     />
                                     <img
                                       src={getPackageImage(value, modalMixConfig.fallbackImage)}
-                                      alt=""
+                                      alt={label}
+                                      role="button"
+                                      tabIndex={0}
+                                      onClick={() => toggleModalImageHighlight(value)}
+                                      onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                          event.preventDefault();
+                                          toggleModalImageHighlight(value);
+                                        }
+                                      }}
                                     />
                                     <strong>{label}</strong>
                                     <div className="store-product-modal__quantity" aria-label={`Quantidade de ${value}`}>
@@ -1124,7 +1283,7 @@ export default function Ecommerce({ onLogout }) {
                         return (
                           <article
                             key={option}
-                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}`}
+                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === option ? ' is-image-highlighted' : ''}`}
                           >
                             <button
                               type="button"
@@ -1132,7 +1291,19 @@ export default function Ecommerce({ onLogout }) {
                               aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${option}`}
                               onClick={() => toggleModalOption(option)}
                             />
-                            <img src={getPackageImage(option, modalMixConfig.fallbackImage)} alt="" />
+                            <img
+                              src={getPackageImage(option, modalMixConfig.fallbackImage)}
+                              alt={option}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => toggleModalImageHighlight(option)}
+                              onKeyDown={(event) => {
+                                if (event.key === 'Enter' || event.key === ' ') {
+                                  event.preventDefault();
+                                  toggleModalImageHighlight(option);
+                                }
+                              }}
+                            />
                             <strong>{option}</strong>
                             <div className="store-product-modal__quantity" aria-label={`Quantidade de ${option}`}>
                               <button
@@ -1173,7 +1344,7 @@ export default function Ecommerce({ onLogout }) {
                         return (
                           <article
                             key={value}
-                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}`}
+                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === value ? ' is-image-highlighted' : ''}`}
                           >
                             <button
                               type="button"
@@ -1183,7 +1354,16 @@ export default function Ecommerce({ onLogout }) {
                             />
                             <img
                               src={getPackageImage(value, modalMixConfig.fallbackImage)}
-                              alt=""
+                              alt={label}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => toggleModalImageHighlight(value)}
+                              onKeyDown={(event) => {
+                                if (event.key === 'Enter' || event.key === ' ') {
+                                  event.preventDefault();
+                                  toggleModalImageHighlight(value);
+                                }
+                              }}
                             />
                             <strong>{label}</strong>
                             <div className="store-product-modal__quantity" aria-label={`Quantidade de ${value}`}>
@@ -1243,7 +1423,7 @@ export default function Ecommerce({ onLogout }) {
                     className="store-product-modal__back"
                     onClick={() => setSelectedModalProduct(null)}
                   >
-                    Continuar Compando
+                    Continuar Comprando
                   </button>
                   <button
                     type="button"
