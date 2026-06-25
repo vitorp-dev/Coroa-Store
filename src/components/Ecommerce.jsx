@@ -66,6 +66,7 @@ import CampinhoGaseificadaPet15Image from '../assets/Individuais/LinhaCampinho/G
 import LemonTonicaLemonPet500Image from '../assets/Individuais/LemonTonica/lemon500.png';
 import LemonTonicaTonicaLata350Image from '../assets/Individuais/LemonTonica/lata_tonica350.png';
 import LemonTonicaTonicaPet600Image from '../assets/Individuais/LemonTonica/pet_tonica600.png';
+import CoroaBeerGarrafa600Image from '../assets/Individuais/CoroaBeer/coroa_beer.png';
 // imports Catálogo
 import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
@@ -321,6 +322,10 @@ const lemonTonicaTonicaOptions = [
   'PET 600ML',
 ];
 
+const coroaBeerOptions = [
+  'GARRAFA 600ML',
+];
+
 const badWolfFlavorCategories = [
   'Original',
   'Maçã verde',
@@ -492,6 +497,7 @@ function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Lemon e Tônica Lemon') && option.includes('PET 500ML')) return LemonTonicaLemonPet500Image;
   if (option.includes('Lemon e Tônica Tônica') && option.includes('LATA 350ML')) return LemonTonicaTonicaLata350Image;
   if (option.includes('Lemon e Tônica Tônica') && option.includes('PET 600ML')) return LemonTonicaTonicaPet600Image;
+  if (option.includes('Coroa Beer') && option.includes('GARRAFA 600ML')) return CoroaBeerGarrafa600Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
   if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
@@ -725,6 +731,29 @@ function getModalMixConfig(product) {
     };
   }
 
+  if (product.image === CardCoroaBeer) {
+    const sections = [
+      {
+        title: 'Coroa Beer',
+        description: 'Opção garrafa 600ML para montar o mix da linha Coroa Beer.',
+        icon: CardCoroaBeer,
+        options: coroaBeerOptions.map((option) => ({
+          label: option,
+          value: `Coroa Beer - ${option}`,
+        })),
+      },
+    ];
+
+    return {
+      brandImage: CardCoroaBeer,
+      fallbackImage: CardCoroaBeer,
+      ariaLabel: 'Opcoes do Coroa Beer',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
   if (product.image === cardBadWolf) {
     const sections = badWolfFlavorCategories.map((flavor) => ({
       title: flavor,
@@ -781,6 +810,7 @@ export default function Ecommerce({ onLogout }) {
   const isIateModal = selectedModalProduct?.image === CardIate;
   const isCampinhoModal = selectedModalProduct?.image === CardCampinho;
   const isLemonTonicaModal = selectedModalProduct?.image === CampinhoTonica;
+  const isCoroaBeerModal = selectedModalProduct?.image === CardCoroaBeer;
   const modalTotalQuantity = selectedModalOptions.reduce(
     (total, option) => total + (modalOptionQuantities[option] || 0),
     0,
@@ -1266,7 +1296,7 @@ export default function Ecommerce({ onLogout }) {
           onClick={() => setSelectedModalProduct(null)}
         >
           <section
-            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}${isCoroaSaboresModal ? ' store-product-modal__dialog--coroa-sabores' : ''}${isFrishModal ? ' store-product-modal__dialog--frish' : ''}${isIateModal ? ' store-product-modal__dialog--iate' : ''}${isCampinhoModal ? ' store-product-modal__dialog--campinho' : ''}${isLemonTonicaModal ? ' store-product-modal__dialog--lemon-tonica' : ''}`}
+            className={`store-product-modal__dialog${isMixModal ? ' store-product-modal__dialog--guarana' : ''}${isCoroaColaPremiumModal ? ' store-product-modal__dialog--cola-premium' : ''}${isBadWolfModal ? ' store-product-modal__dialog--bad-wolf' : ''}${isCoroaSaboresModal ? ' store-product-modal__dialog--coroa-sabores' : ''}${isFrishModal ? ' store-product-modal__dialog--frish' : ''}${isIateModal ? ' store-product-modal__dialog--iate' : ''}${isCampinhoModal ? ' store-product-modal__dialog--campinho' : ''}${isLemonTonicaModal ? ' store-product-modal__dialog--lemon-tonica' : ''}${isCoroaBeerModal ? ' store-product-modal__dialog--coroa-beer' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="product-modal-title"

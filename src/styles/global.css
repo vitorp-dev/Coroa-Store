@@ -2087,6 +2087,11 @@ a {
   height: 112px;
 }
 
+.store-product-modal__dialog--coroa-beer .store-product-modal__brand img {
+  width: min(100%, 210px);
+  height: 112px;
+}
+
 .store-product-modal__brand strong {
   position: relative;
   color: #064e3b;
