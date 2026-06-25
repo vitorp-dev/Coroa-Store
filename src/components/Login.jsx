@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import Produtos from './Produtos';
@@ -147,7 +147,7 @@ function BrandMark() {
   );
 }
 
-function TopBar() {
+function TopBar({ onOpenRegister }) {
   return (
     <header className="login-topbar">
       <BrandMark />
@@ -165,12 +165,18 @@ function TopBar() {
         ))}
       </nav>
 
-      <button type="button" className="login-topbar__action">
-        <span className="login-icon">
-          <Icon type="user-plus" />
-        </span>
-        Solicitar acesso
-      </button>
+      <div className="login-topbar__actions">
+        <button type="button" className="login-topbar__register" onClick={onOpenRegister}>
+          Cadastrar-se
+        </button>
+
+        <button type="button" className="login-topbar__action">
+          <span className="login-icon">
+            <Icon type="user-plus" />
+          </span>
+          Solicitar acesso
+        </button>
+      </div>
     </header>
   );
 }
@@ -325,14 +331,337 @@ function LoginPanel({ onLogin }) {
   );
 }
 
+function RegisterModal({ onClose }) {
+  const [status, setStatus] = useState('');
+  const [cnpj, setCnpj] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [tradeName, setTradeName] = useState('');
+  const [stateRegistration, setStateRegistration] = useState('');
+  const [responsibleName, setResponsibleName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [stateUf, setStateUf] = useState('');
+  const [password, setPassword] = useState('');
+  const [cnpjStatus, setCnpjStatus] = useState('');
+  const [isLoadingCnpj, setIsLoadingCnpj] = useState(false);
+
+  const cnpjDigits = cnpj.replace(/\D/g, '');
+
+  useEffect(() => {
+    if (cnpjDigits.length !== 14) {
+      setCnpjStatus('');
+      setIsLoadingCnpj(false);
+      return undefined;
+    }
+
+    const controller = new AbortController();
+
+    async function fetchCompanyData() {
+      setIsLoadingCnpj(true);
+      setCnpjStatus('Consultando CNPJ...');
+
+      try {
+        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjDigits}`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error('CNPJ nao encontrado.');
+        }
+
+        const data = await response.json();
+        const primaryPhone = [data.ddd_telefone_1, data.ddd_telefone_2].find(Boolean);
+        const addressParts = [
+          data.descricao_tipo_de_logradouro,
+          data.logradouro,
+          data.numero,
+          data.complemento,
+          data.bairro,
+        ].filter(Boolean);
+
+        setCompanyName(data.razao_social || data.nome_fantasia || '');
+        setTradeName(data.nome_fantasia || '');
+        setEmail(data.email || '');
+        setPhone(primaryPhone || '');
+        setZipCode(formatZipCode(data.cep || ''));
+        setAddress(addressParts.join(', '));
+        setCity(data.municipio || '');
+        setStateUf(data.uf || '');
+        setCnpjStatus('Dados preenchidos automaticamente.');
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          return;
+        }
+
+        setCnpjStatus('Nao foi possivel consultar este CNPJ. Preencha os dados manualmente.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoadingCnpj(false);
+        }
+      }
+    }
+
+    fetchCompanyData();
+
+    return () => controller.abort();
+  }, [cnpjDigits]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setStatus('Cadastro enviado para analise comercial.');
+  }
+
+  function handleCnpjChange(event) {
+    const digits = event.target.value.replace(/\D/g, '').slice(0, 14);
+    setCnpj(formatCnpj(digits));
+  }
+
+  function handleZipCodeChange(event) {
+    setZipCode(formatZipCode(event.target.value));
+  }
+
+  function formatCnpj(value) {
+    return value
+      .replace(/^(\d{2})(\d)/, '$1.$2')
+      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1/$2')
+      .replace(/(\d{4})(\d)/, '$1-$2');
+  }
+
+  function formatZipCode(value) {
+    return value
+      .replace(/\D/g, '')
+      .slice(0, 8)
+      .replace(/^(\d{5})(\d)/, '$1-$2');
+  }
+
+  return (
+    <div className="login-register-modal" role="presentation" onClick={onClose}>
+      <section
+        className="login-register-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="register-title"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="login-register-modal__close"
+          aria-label="Fechar cadastro"
+          onClick={onClose}
+        >
+          x
+        </button>
+
+        <div className="login-register-modal__header">
+          <span className="login-pill">
+            <span className="login-icon login-icon--small">
+              <Icon type="user-plus" />
+            </span>
+            NOVO CADASTRO
+          </span>
+          <h2 id="register-title">Cadastrar empresa</h2>
+          <p>Preencha os dados abaixo para solicitar a criacao do acesso.</p>
+        </div>
+
+        <form className="login-register-form" onSubmit={handleSubmit}>
+          <label className="login-field">
+            <span>CNPJ</span>
+            <div className="login-input">
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="00.000.000/0000-00"
+                autoComplete="off"
+                value={cnpj}
+                onChange={handleCnpjChange}
+                required
+              />
+            </div>
+            {cnpjStatus ? (
+              <small className={isLoadingCnpj ? 'login-field__hint is-loading' : 'login-field__hint'}>
+                {cnpjStatus}
+              </small>
+            ) : null}
+          </label>
+
+          <label className="login-field">
+            <span>Razao Social</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Nome da empresa"
+                value={companyName}
+                onChange={(event) => setCompanyName(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Nome Fantasia</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Nome comercial"
+                value={tradeName}
+                onChange={(event) => setTradeName(event.target.value)}
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Inscricao Estadual</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Inscricao estadual"
+                value={stateRegistration}
+                onChange={(event) => setStateRegistration(event.target.value)}
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Nome do responsavel</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Responsavel pelo cadastro"
+                value={responsibleName}
+                onChange={(event) => setResponsibleName(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Telefone / WhatsApp</span>
+            <div className="login-input">
+              <input
+                type="tel"
+                placeholder="(00) 00000-0000"
+                autoComplete="tel"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>E-mail</span>
+            <div className="login-input">
+              <input
+                type="email"
+                placeholder="contato@empresa.com"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>CEP</span>
+            <div className="login-input">
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="00000-000"
+                autoComplete="postal-code"
+                value={zipCode}
+                onChange={handleZipCodeChange}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field login-field--wide">
+            <span>Endereco</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Rua, numero, complemento e bairro"
+                autoComplete="street-address"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Cidade</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="Cidade"
+                value={city}
+                onChange={(event) => setCity(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field">
+            <span>Estado</span>
+            <div className="login-input">
+              <input
+                type="text"
+                placeholder="UF"
+                maxLength="2"
+                value={stateUf}
+                onChange={(event) => setStateUf(event.target.value.toUpperCase().slice(0, 2))}
+                required
+              />
+            </div>
+          </label>
+
+          <label className="login-field login-field--wide">
+            <span>Senha</span>
+            <div className="login-input">
+              <input
+                type="password"
+                placeholder="Crie uma senha"
+                autoComplete="new-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </div>
+          </label>
+
+          {status ? <p className="login-register-form__status">{status}</p> : null}
+
+          <div className="login-register-form__actions">
+            <button type="button" className="login-register-form__cancel" onClick={onClose}>
+              Cancelar
+            </button>
+            <button type="submit" className="login-submit">
+              Enviar cadastro
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  );
+}
+
 export default function Login({ onLogin }) {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
   return (
     <main
       className="login-page"
       style={{ '--login-bg': `url(${backgroundImage})` }}
     >
       <div className="login-stage">
-        <TopBar />
+        <TopBar onOpenRegister={() => setIsRegisterOpen(true)} />
 
         <div className="login-layout">
           <HeroSection />
@@ -341,6 +670,7 @@ export default function Login({ onLogin }) {
           </div>
         </div>
       </div>
+      {isRegisterOpen ? <RegisterModal onClose={() => setIsRegisterOpen(false)} /> : null}
       <Produtos />
     </main>
   );

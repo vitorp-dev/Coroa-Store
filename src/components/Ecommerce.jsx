@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-// import bgProdutos from '../assets/ImgProduto/bg_produtos.png';
+﻿import { useEffect, useState } from 'react';
 import iconColaPremium from '../assets/Icones/icon_cola_premium.png';
 import iconGuarana from '../assets/Icones/icon_guarana.png';
 import iconBadWolf from '../assets/Icones/icon_bw.png';
+import promoTestIcon from '../assets/Icones/promo_test.jpeg';
+import bgCatalogo from '../assets/Icones/bg_catalogo.png';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
 // iports de imagens individuais
@@ -75,10 +76,9 @@ import CardCoroaColaPremium from "../assets/Catalogo/card_coroacola_premium.png"
 import CardSabores from "../assets/Catalogo/card_sabores.png";
 import CardFrish from "../assets/Catalogo/card_frish.png";
 import CardTampico from "../assets/Catalogo/card_tampico.png";
-import CardKlas from "../assets/Catalogo/card_klas.png";
 import CardIate from "../assets/Catalogo/card_iate.png";
 import CampinhoTonica from "../assets/Catalogo/card_campinho_tonica.png";
-import CampinhoPremium from "../assets/Catalogo/card_premium.png";
+import CardTonica from "../assets/Catalogo/card_tonica.png";
 import CardCoroaBeer from "../assets/Catalogo/card_coroa_beer.png";
 import CardArtesanais from "../assets/Catalogo/card_artesanais.png";
 import CardLafruit from "../assets/Catalogo/card_lafruit.png";
@@ -97,8 +97,8 @@ const ecommerceProducts = [
   },
   // card 02 Coroa Cola Premium
   {
-    name: 'Linha Coroa Cola Premium',
-    description: 'Embalagens para abastecimento recorrente.',
+    name: 'Coroa Cola Premium',
+    description: 'Linha Completa de Refrigerantes Sabor Cola.',
     price: 'R$ 174,20',
     image: CardCoroaColaPremium,
     showImage: true,
@@ -107,19 +107,19 @@ const ecommerceProducts = [
   },
   // card 03 linha Bad Wolf
   {
-    name: 'Linha Bad Wolf',
-    description: 'Energeticos para campanhas e oportunidades.',
+    name: 'Energéticos Bad Wolf',
+    description: 'Linha Completa de Energéticos Bad Wolf.',
     price: 'R$ 142,50',
     image: cardBadWolf,
     showImage: true,
     icon: 'bolt',
     category: 'Energeticos',
   },
-  
+
   // card 04 Linha Coroa Sabores
   {
-    name: 'Linha Coroa Sabores',
-    description: 'Combinacao pratica para reposicao de refrigerantes.',
+    name: 'Coroa Sabores',
+    description: 'Linha Completa de Refrigerantes Coroa Sabores.',
     price: 'R$ 156,80',
     image: CardSabores,
     showImage: true,
@@ -127,9 +127,9 @@ const ecommerceProducts = [
     category: 'Refrigerantes',
   },
   // card 05 Linha Frish
-   {
-    name: 'Linha Friish',
-    description: 'Selecao de energeticos para giro em campanhas.',
+  {
+    name: 'Coroa Friish',
+    description: 'Linha Completa de Refrigerantes Coroa Friish.',
     price: 'R$ 188,40',
     image: CardFrish,
     showImage: true,
@@ -138,78 +138,68 @@ const ecommerceProducts = [
   },
   // card 06 Linha Iate
   {
-    name: 'Linha Iate',
-    description: 'Selecao de energeticos para giro em campanhas.',
+    name: 'Coroa Iate',
+    description: 'Linha Completa de Refrigerantes Coroa Iate.',
     price: 'R$ 188,40',
     image: CardIate,
     showImage: true,
     icon: 'bolt',
     category: 'Refrigerantes',
   },
-   // card 07 Linha Campinho
+  // card 07 Linha Campinho
   {
     name: 'Linha Campinho',
-    description: 'Produtos em destaque para ofertas comerciais.',
+    description: 'Linha Completa de Águas Campinho.',
     price: 'R$ 96,40',
     image: CardCampinho,
     showImage: true,
     icon: 'drop',
     category: 'Aguas',
   },
- // card 08 Lemon e Tônica
+  // card 08 Lemon
   {
-    name: 'Linha Lemon e Tônica',
-    description: 'Opcoes leves para abastecimento diario do ponto.',
+    name: ' CampinhoLemon',
+    description: 'Linha Campinho Lemon.',
     price: 'R$ 82,90',
     image: CampinhoTonica,
     showImage: true,
     icon: 'drop',
     category: 'Aguas',
   },
-  // 09Campinho Premium
-   {
-    name: 'Linha Campinho Premium',
-    description: 'Opcoes leves para abastecimento diario do ponto.',
+  // card 09 Linha Tonica
+  {
+    name: 'Água Tônica',
+    description: 'Linha Águas Tônicas.',
     price: 'R$ 82,90',
-    image:CampinhoPremium,
+    image: CardTonica,
     showImage: true,
     icon: 'drop',
     category: 'Aguas',
   },
-  // 10 Linha Agua Klass
-  {
-    name: 'Linha Agua Klass',
-    description: 'Rotulos especiais para clientes de maior valor.',
-    price: 'R$ 219,70',
-    image: CardKlas,
-    showImage: true,
-    icon: 'barrel',
-    category: 'Aguas',
-  },
-  // card 11 Coroa Beer
+  // card 10 Coroa Beer
   {
     name: 'Coroa Beer',
-    description: 'Mix estrategico para montar ofertas comerciais.',
+    description: 'Linha Coroa Beer.',
     price: 'R$ 132,60',
     image: CardCoroaBeer,
     showImage: true,
     icon: 'cart',
     category: 'Artesanais',
   },
-  // card 12 teresense
+  // card 11 teresense
   {
-    name: 'Cerveja Teresense',
-    description: 'Produtos selecionados para pedidos recorrentes.',
+    name: 'Cervejaria Teresense',
+    description: 'Linha Completa de Produtos artesanais.',
     price: 'R$ 164,30',
     image: CardArtesanais,
     showImage: true,
     icon: 'chart',
     category: 'Artesanais',
   },
-  // card 13 Linha La Fuit
+  // card 12 Linha La Fuit
   {
     name: 'Linha La Fuit',
-    description: 'Mix premium para pontos com maior volume de venda.',
+    description: 'Linha Completa de Sucos La Fuit.',
     price: 'R$ 246,90',
     image: CardLafruit,
     showImage: true,
@@ -219,7 +209,7 @@ const ecommerceProducts = [
   // Linha Tampico
   {
     name: 'Linha Tampico',
-    description: 'Itens campeoes para acelerar a reposicao da loja.',
+    description: 'Linha Completa de Sucos Tampico.',
     price: 'R$ 118,50',
     image: CardTampico,
     showImage: true,
@@ -271,7 +261,7 @@ const coroaSaboresPackageOptions = [
 
 const coroaSaboresFlavorCategories = [
   'Laranja',
-  'Limão',
+  'LimÃ£o',
   'Uva',
 ];
 
@@ -281,9 +271,9 @@ const friishPackageOptions = [
 
 const friishFlavorCategories = [
   'Cola',
-  'Guaraná',
+  'GuaranÃ¡',
   'Laranja',
-  'Limão',
+  'LimÃ£o',
   'Uva',
 ];
 
@@ -294,9 +284,9 @@ const iatePackageOptions = [
 
 const iateFlavorCategories = [
   'Cola',
-  'Guaraná',
+  'GuaranÃ¡',
   'Laranja',
-  'Limão',
+  'LimÃ£o',
   'Uva',
 ];
 
@@ -328,7 +318,7 @@ const coroaBeerOptions = [
 
 const badWolfFlavorCategories = [
   'Original',
-  'Maçã verde',
+  'MaÃ§Ã£ verde',
   'Melancia',
   'Tropical',
 ];
@@ -468,23 +458,23 @@ function getPackageIcon(option) {
 function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Coroa Sabores Laranja') && option.includes('PET 250ML')) return CoroaSaboresLaranjaPet250Image;
   if (option.includes('Coroa Sabores Laranja') && option.includes('PET 2L')) return CoroaSaboresLaranjaPet2Image;
-  if (option.includes('Coroa Sabores Limão') && option.includes('PET 250ML')) return CoroaSaboresLimaoPet250Image;
-  if (option.includes('Coroa Sabores Limão') && option.includes('PET 2L')) return CoroaSaboresLimaoPet2Image;
+  if (option.includes('Coroa Sabores LimÃ£o') && option.includes('PET 250ML')) return CoroaSaboresLimaoPet250Image;
+  if (option.includes('Coroa Sabores LimÃ£o') && option.includes('PET 2L')) return CoroaSaboresLimaoPet2Image;
   if (option.includes('Coroa Sabores Uva') && option.includes('PET 250ML')) return CoroaSaboresUvaPet250Image;
   if (option.includes('Coroa Sabores Uva') && option.includes('PET 2L')) return CoroaSaboresUvaPet2Image;
   if (option.includes('Friish Cola')) return FriishColaPet2Image;
-  if (option.includes('Friish Guaraná')) return FriishGuaranaPet2Image;
+  if (option.includes('Friish GuaranÃ¡')) return FriishGuaranaPet2Image;
   if (option.includes('Friish Laranja')) return FriishLaranjaPet2Image;
-  if (option.includes('Friish Limão')) return FriishLimaoPet2Image;
+  if (option.includes('Friish LimÃ£o')) return FriishLimaoPet2Image;
   if (option.includes('Friish Uva')) return FriishUvaPet2Image;
   if (option.includes('Iate Cola') && option.includes('PET 250ML')) return IateColaPet250Image;
   if (option.includes('Iate Cola') && option.includes('PET 2L')) return IateColaPet2Image;
-  if (option.includes('Iate Guaraná') && option.includes('PET 250ML')) return IateGuaranaPet250Image;
-  if (option.includes('Iate Guaraná') && option.includes('PET 2L')) return IateGuaranaPet2Image;
+  if (option.includes('Iate GuaranÃ¡') && option.includes('PET 250ML')) return IateGuaranaPet250Image;
+  if (option.includes('Iate GuaranÃ¡') && option.includes('PET 2L')) return IateGuaranaPet2Image;
   if (option.includes('Iate Laranja') && option.includes('PET 250ML')) return IateLaranjaPet250Image;
   if (option.includes('Iate Laranja') && option.includes('PET 2L')) return IateLaranjaPet2Image;
-  if (option.includes('Iate Limão') && option.includes('PET 250ML')) return IateLimaoPet250Image;
-  if (option.includes('Iate Limão') && option.includes('PET 2L')) return IateLimaoPet2Image;
+  if (option.includes('Iate LimÃ£o') && option.includes('PET 250ML')) return IateLimaoPet250Image;
+  if (option.includes('Iate LimÃ£o') && option.includes('PET 2L')) return IateLimaoPet2Image;
   if (option.includes('Iate Uva') && option.includes('PET 250ML')) return IateUvaPet250Image;
   if (option.includes('Iate Uva') && option.includes('PET 2L')) return IateUvaPet2Image;
   if (option.includes('Campinho Natural') && option.includes('PET 500ML')) return CampinhoNaturalPet500Image;
@@ -494,14 +484,14 @@ function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Campinho Natural') && option.includes('PET 5L')) return CampinhoNaturalPet5Image;
   if (option.includes('Campinho Gaseificada') && option.includes('PET 500ML')) return CampinhoGaseificadaPet500Image;
   if (option.includes('Campinho Gaseificada') && option.includes('PET 1,5L')) return CampinhoGaseificadaPet15Image;
-  if (option.includes('Lemon e Tônica Lemon') && option.includes('PET 500ML')) return LemonTonicaLemonPet500Image;
-  if (option.includes('Lemon e Tônica Tônica') && option.includes('LATA 350ML')) return LemonTonicaTonicaLata350Image;
-  if (option.includes('Lemon e Tônica Tônica') && option.includes('PET 600ML')) return LemonTonicaTonicaPet600Image;
+  if ((option.includes('Lemon -') || option.includes('Lemon e TÃ´nica Lemon')) && option.includes('PET 500ML')) return LemonTonicaLemonPet500Image;
+  if ((option.includes('Linha Tonica') || option.includes('Lemon e TÃ´nica TÃ´nica')) && option.includes('LATA 350ML')) return LemonTonicaTonicaLata350Image;
+  if ((option.includes('Linha Tonica') || option.includes('Lemon e TÃ´nica TÃ´nica')) && option.includes('PET 600ML')) return LemonTonicaTonicaPet600Image;
   if (option.includes('Coroa Beer') && option.includes('GARRAFA 600ML')) return CoroaBeerGarrafa600Image;
-  if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
-  if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
-  if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
-  if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 2L')) return BadWolfMacaVerdePet2Image;
+  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
+  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
+  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
+  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('PET 2L')) return BadWolfMacaVerdePet2Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('Lata 269ML')) return BadWolfMelanciaLata269Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('Lata 473ML')) return BadWolfMelanciaLata473Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('PET 270ML')) return BadWolfMelanciaPet270Image;
@@ -560,8 +550,8 @@ function getModalMixConfig(product) {
           options: traditionalOptions.map((option) => ({ label: option, value: option })),
         },
         {
-          title: 'Zero açúcar',
-          description: 'Opções zero para clientes que buscam leveza no mix.',
+          title: 'Zero aÃ§Ãºcar',
+          description: 'OpÃ§Ãµes zero para clientes que buscam leveza no mix.',
           icon: iconGuarana,
           className: 'store-product-modal__option-section--zero',
           gridClassName: 'store-product-modal__pack-grid--zero',
@@ -570,7 +560,7 @@ function getModalMixConfig(product) {
       ],
     };
   }
-// Card Coroa Cola Premium
+  // Card Coroa Cola Premium
   if (product.image === CardCoroaColaPremium) {
     const traditionalOptions = coroaColaTraditionalOptions;
     const zeroOptions = coroaColaZeroOptions.map((option) => ({
@@ -593,8 +583,8 @@ function getModalMixConfig(product) {
           options: traditionalOptions.map((option) => ({ label: option, value: option })),
         },
         {
-          title: 'Zero açúcar',
-          description: 'Opções zero para clientes que buscam leveza no mix.',
+          title: 'Zero aÃ§Ãºcar',
+          description: 'OpÃ§Ãµes zero para clientes que buscam leveza no mix.',
           icon: iconColaPremium,
           className: 'store-product-modal__option-section--zero',
           gridClassName: 'store-product-modal__pack-grid--zero',
@@ -607,7 +597,7 @@ function getModalMixConfig(product) {
   if (product.image === CardSabores) {
     const sections = coroaSaboresFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'Opções de embalagem para montar o mix da linha Coroa Sabores.',
+      description: 'OpÃ§Ãµes de embalagem para montar o mix da linha Coroa Sabores.',
       icon: CardSabores,
       options: coroaSaboresPackageOptions.map((option) => ({
         label: option,
@@ -628,7 +618,7 @@ function getModalMixConfig(product) {
   if (product.image === CardFrish) {
     const sections = friishFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'Opção PET 2L para montar o mix da linha Frish.',
+      description: 'OpÃ§Ã£o PET 2L para montar o mix da linha Frish.',
       icon: CardFrish,
       options: friishPackageOptions.map((option) => ({
         label: option,
@@ -649,7 +639,7 @@ function getModalMixConfig(product) {
   if (product.image === CardIate) {
     const sections = iateFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'Opções PET 250ML e PET 2L para montar o mix da linha Iate.',
+      description: 'OpÃ§Ãµes PET 250ML e PET 2L para montar o mix da linha Iate.',
       icon: CardIate,
       options: iatePackageOptions.map((option) => ({
         label: option,
@@ -671,7 +661,7 @@ function getModalMixConfig(product) {
     const sections = [
       {
         title: 'Natural',
-        description: 'Opções de água natural para montar o mix da linha Campinho.',
+        description: 'OpÃ§Ãµes de Ã¡gua natural para montar o mix da linha Campinho.',
         icon: CardCampinho,
         options: campinhoNaturalOptions.map((option) => ({
           label: option,
@@ -680,7 +670,7 @@ function getModalMixConfig(product) {
       },
       {
         title: 'Gaseificada',
-        description: 'Opções de água gaseificada para montar o mix da linha Campinho.',
+        description: 'OpÃ§Ãµes de Ã¡gua gaseificada para montar o mix da linha Campinho.',
         icon: CardCampinho,
         options: campinhoGaseificadaOptions.map((option) => ({
           label: option,
@@ -699,24 +689,15 @@ function getModalMixConfig(product) {
     };
   }
 
-  if (product.image === CampinhoTonica) {
+  if (product.image === CampinhoTonica && product.name === 'Lemon') {
     const sections = [
       {
         title: 'Lemon',
-        description: 'Opção PET 500ML para montar o mix da linha Lemon.',
+        description: 'Opcao PET 500ML para montar o mix da linha Lemon.',
         icon: CampinhoTonica,
         options: lemonTonicaLemonOptions.map((option) => ({
           label: option,
-          value: `Lemon e Tônica Lemon - ${option}`,
-        })),
-      },
-      {
-        title: 'Tônica',
-        description: 'Opções lata e PET para montar o mix da linha Tônica.',
-        icon: CampinhoTonica,
-        options: lemonTonicaTonicaOptions.map((option) => ({
-          label: option,
-          value: `Lemon e Tônica Tônica - ${option}`,
+          value: `Lemon - ${option}`,
         })),
       },
     ];
@@ -724,7 +705,30 @@ function getModalMixConfig(product) {
     return {
       brandImage: CampinhoTonica,
       fallbackImage: CampinhoTonica,
-      ariaLabel: 'Opcoes da Linha Lemon e Tonica',
+      ariaLabel: 'Opcoes da Linha Lemon',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
+  if (product.image === CardTonica && product.name === 'Linha Tonica') {
+    const sections = [
+      {
+        title: 'Tonica',
+        description: 'Opcoes lata e PET para montar o mix da linha Tonica.',
+        icon: CardTonica,
+        options: lemonTonicaTonicaOptions.map((option) => ({
+          label: option,
+          value: `Linha Tonica - ${option}`,
+        })),
+      },
+    ];
+
+    return {
+      brandImage: CardTonica,
+      fallbackImage: CardTonica,
+      ariaLabel: 'Opcoes da Linha Tonica',
       traditionalOptions: [sections[0].options[0].value],
       zeroOptions: [],
       sections,
@@ -735,7 +739,7 @@ function getModalMixConfig(product) {
     const sections = [
       {
         title: 'Coroa Beer',
-        description: 'Opção garrafa 600ML para montar o mix da linha Coroa Beer.',
+        description: 'OpÃ§Ã£o garrafa 600ML para montar o mix da linha Coroa Beer.',
         icon: CardCoroaBeer,
         options: coroaBeerOptions.map((option) => ({
           label: option,
@@ -757,7 +761,7 @@ function getModalMixConfig(product) {
   if (product.image === cardBadWolf) {
     const sections = badWolfFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'Opções de embalagem para montar o mix da linha Bad Wolf.',
+      description: 'OpÃ§Ãµes de embalagem para montar o mix da linha Bad Wolf.',
       icon: iconBadWolf,
       options: badWolfPackageOptions.map((option) => ({
         label: option,
@@ -789,8 +793,9 @@ export default function Ecommerce({ onLogout }) {
   const [selectedModalOptions, setSelectedModalOptions] = useState([]);
   const [modalOptionQuantities, setModalOptionQuantities] = useState({});
   const [highlightedModalOption, setHighlightedModalOption] = useState('');
+  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
   const [productOptions, setProductOptions] = useState({
-    'Guaraná Coroa': { size: '250ml', type: 'Normal' },
+    'GuaranÃ¡ Coroa': { size: '250ml', type: 'Normal' },
   });
 
   const cartTotal = cartItems.reduce(
@@ -809,7 +814,7 @@ export default function Ecommerce({ onLogout }) {
   const isFrishModal = selectedModalProduct?.image === CardFrish;
   const isIateModal = selectedModalProduct?.image === CardIate;
   const isCampinhoModal = selectedModalProduct?.image === CardCampinho;
-  const isLemonTonicaModal = selectedModalProduct?.image === CampinhoTonica;
+  const isLemonTonicaModal = selectedModalProduct?.image === CampinhoTonica || selectedModalProduct?.image === CardTonica;
   const isCoroaBeerModal = selectedModalProduct?.image === CardCoroaBeer;
   const modalTotalQuantity = selectedModalOptions.reduce(
     (total, option) => total + (modalOptionQuantities[option] || 0),
@@ -817,7 +822,7 @@ export default function Ecommerce({ onLogout }) {
   );
   const modalUnitPrice = selectedModalProduct ? parseCurrency(selectedModalProduct.price) : 0;
   const modalTotalValue = modalTotalQuantity * modalUnitPrice;
-  
+
 
   useEffect(() => {
     if (!selectedModalProduct) {
@@ -1035,7 +1040,7 @@ export default function Ecommerce({ onLogout }) {
   return (
     <main
       className="store-page"
-      // style={{ '--products-bg': `url(${bgProdutos})` }}
+    // style={{ '--products-bg': `url(${bgProdutos})` }}
     >
       <header className="store-topbar">
         <div className="store-brand">
@@ -1051,6 +1056,7 @@ export default function Ecommerce({ onLogout }) {
             className={`store-nav__link ${currentScreen === 'catalogo' ? 'store-nav__link--active' : ''}`}
             onClick={goToCatalog}
           >
+            <StoreIcon type="bubbles" />
             Catalogo
           </button>
           <button
@@ -1058,6 +1064,7 @@ export default function Ecommerce({ onLogout }) {
             className={`store-nav__link ${currentScreen === 'pedidos' ? 'store-nav__link--active' : ''}`}
             onClick={() => setCurrentScreen('pedidos')}
           >
+            <StoreIcon type="bottle" />
             Pedidos
           </button>
           <a
@@ -1065,6 +1072,7 @@ export default function Ecommerce({ onLogout }) {
             href="#carrinho"
             onClick={() => setCurrentScreen('catalogo')}
           >
+            <StoreIcon type="cart" />
             Carrinho
           </a>
         </nav>
@@ -1074,11 +1082,13 @@ export default function Ecommerce({ onLogout }) {
             <span>GC</span>
             <div>
               <strong>Cliente Coroa</strong>
-              <small>Online agora</small>
+              <small>Clientegrupos</small>
             </div>
+            <span className="store-session__chevron" aria-hidden="true">v</span>
           </div>
 
           <button type="button" className="store-logout" onClick={onLogout}>
+            <span aria-hidden="true">â†ª</span>
             Sair
           </button>
         </div>
@@ -1098,12 +1108,52 @@ export default function Ecommerce({ onLogout }) {
         <AcompanhamentoPedidos onBackToCatalog={() => setCurrentScreen('catalogo')} />
       ) : (
         <>
-          <section id="catalogo" className="store-catalog" aria-labelledby="catalog-title">
+          <section
+            id="catalogo"
+            className="store-catalog"
+            aria-labelledby="catalog-title"
+            style={{ '--store-catalog-bg': `url(${bgCatalogo})` }}
+          >
             <div className="store-section-heading">
               <div className="store-section-title">
                 <span>Catalogo</span>
-                <h2 id="catalog-title">Produtos disponiveis</h2>
+                <h2 id="catalog-title" className="store-catalog-title">
+                   Marcas e Produtos
+                </h2>
               </div>
+              <button
+                type="button"
+                className="store-promo-callout"
+                aria-label="Abrir Promocoes e Ofertas"
+                onClick={() => setIsPromoModalOpen(true)}
+              >
+                <span className="store-promo-callout__icon" aria-hidden="true">
+                  <img src={promoTestIcon} alt="" />
+                </span>
+                <div className="store-promo-callout__viewport">
+                  <div className="store-promo-callout__track">
+                    <div className="store-promo-callout__content">
+                      <strong>Promocoes e Ofertas</strong>
+                      <small>Descontos especiais e ofertas exclusivas selecionadas para voce!</small>
+                    </div>
+                    <div className="store-promo-callout__content">
+                      <strong>Combos Comerciais</strong>
+                      <small>Monte seu mix com condicoes pensadas para abastecimento recorrente.</small>
+                    </div>
+                    <div className="store-promo-callout__content">
+                      <strong>Novidades Coroa</strong>
+                      <small>Acompanhe destaques e linhas selecionadas para sua loja.</small>
+                    </div>
+                  </div>
+                </div>
+                <span className="store-promo-callout__badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M19 5 5 19" />
+                    <circle cx="7.5" cy="7.5" r="2" />
+                    <circle cx="16.5" cy="16.5" r="2" />
+                  </svg>
+                </span>
+              </button>
               <div className="store-category store-category--catalog">
                 <button
                   type="button"
@@ -1141,8 +1191,10 @@ export default function Ecommerce({ onLogout }) {
               {filteredProducts.map((product) => (
                 <article
                   key={product.name}
-                  className={`store-product-card${product.image === cardGuarana ? ' store-product-card--guarana' : ''}${product.image === CardCoroaBeer ? ' store-product-card--coroa-beer' : ''}${expandedProduct === product.name ? ' store-product-card--expanded' : ''}`}
-                  onClick={() => openProductModal(product)}
+                  className={`store-product-card${product.image === cardGuarana ? ' store-product-card--guarana' : 
+                  ''}${product.image === CardFrish ? ' store-product-card--frish' : ''}${product.image === CardIate ? ' store-product-card--iate' :
+                 ''}${product.image === CardTonica ? ' store-product-card--tonica' : ''}${product.image === CardCoroaBeer ? ' store-product-card--coroa-beer' : ''}${expandedProduct === product.name ? ' store-product-card--expanded' : ''}`}
+                 onClick={() => openProductModal(product)}
                 >
                   {product.showImage ? (
                     <div className="store-product-card__image">
@@ -1289,6 +1341,28 @@ export default function Ecommerce({ onLogout }) {
         </>
       )}
 
+      {isPromoModalOpen ? (
+        <div className="store-promo-modal" role="presentation" onClick={() => setIsPromoModalOpen(false)}>
+          <section
+            className="store-promo-modal__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Promocoes e Ofertas"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="store-promo-modal__close"
+              aria-label="Fechar promocoes"
+              onClick={() => setIsPromoModalOpen(false)}
+            >
+              x
+            </button>
+            <img src={promoTestIcon} alt="Promocoes e ofertas Coroa Store" />
+          </section>
+        </div>
+      ) : null}
+
       {selectedModalProduct ? (
         <div
           className="store-product-modal"
@@ -1403,127 +1477,127 @@ export default function Ecommerce({ onLogout }) {
                         ))
                       ) : (
                         <>
-                      <section className="store-product-modal__option-section">
-                    <div className="store-product-modal__section-heading">
-                      <span className="store-product-modal__section-icon">
-                        <img src={modalMixConfig.brandImage} alt="" />
-                      </span>
-                      <div>
-                        <span>Linha tradicional</span>
-                        <small>Formatos para consumo individual, familia e abastecimento.</small>
-                      </div>
-                    </div>
-                    <div className="store-product-modal__pack-grid">
-                      {modalMixConfig.traditionalOptions.map((option) => {
-                        const optionQuantity = modalOptionQuantities[option] || 0;
-                        const isSelected = optionQuantity > 0;
-
-                        return (
-                          <article
-                            key={option}
-                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === option ? ' is-image-highlighted' : ''}`}
-                          >
-                            <button
-                              type="button"
-                              className="store-product-modal__pack-select"
-                              aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${option}`}
-                              onClick={() => toggleModalOption(option)}
-                            />
-                            <img
-                              src={getPackageImage(option, modalMixConfig.fallbackImage)}
-                              alt={option}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => toggleModalImageHighlight(option)}
-                              onKeyDown={(event) => {
-                                if (event.key === 'Enter' || event.key === ' ') {
-                                  event.preventDefault();
-                                  toggleModalImageHighlight(option);
-                                }
-                              }}
-                            />
-                            <strong>{option}</strong>
-                            <div className="store-product-modal__quantity" aria-label={`Quantidade de ${option}`}>
-                              <button
-                                type="button"
-                                onClick={() => updateModalOptionQuantity(option, -1)}
-                              >
-                                -
-                              </button>
-                              <span>{optionQuantity}</span>
-                              <button
-                                type="button"
-                                onClick={() => updateModalOptionQuantity(option, 1)}
-                              >
-                                +
-                              </button>
+                          <section className="store-product-modal__option-section">
+                            <div className="store-product-modal__section-heading">
+                              <span className="store-product-modal__section-icon">
+                                <img src={modalMixConfig.brandImage} alt="" />
+                              </span>
+                              <div>
+                                <span>Linha tradicional</span>
+                                <small>Formatos para consumo individual, familia e abastecimento.</small>
+                              </div>
                             </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                      </section>
+                            <div className="store-product-modal__pack-grid">
+                              {modalMixConfig.traditionalOptions.map((option) => {
+                                const optionQuantity = modalOptionQuantities[option] || 0;
+                                const isSelected = optionQuantity > 0;
 
-                      <section className="store-product-modal__option-section store-product-modal__option-section--zero">
-                    <div className="store-product-modal__section-heading">
-                      <span className="store-product-modal__section-icon">
-                        <img src={modalMixConfig.zeroIcon} alt="" />
-                      </span>
-                      <div>
-                        <span>Zero açúcar</span>
-                        <small>Opções zero para clientes que buscam leveza no mix.</small>
-                      </div>
-                    </div>
-                    <div className="store-product-modal__pack-grid store-product-modal__pack-grid--zero">
-                      {modalMixConfig.zeroOptions.map(({ label, value }) => {
-                        const optionQuantity = modalOptionQuantities[value] || 0;
-                        const isSelected = optionQuantity > 0;
-
-                        return (
-                          <article
-                            key={value}
-                            className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === value ? ' is-image-highlighted' : ''}`}
-                          >
-                            <button
-                              type="button"
-                              className="store-product-modal__pack-select"
-                              aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${value}`}
-                              onClick={() => toggleModalOption(value)}
-                            />
-                            <img
-                              src={getPackageImage(value, modalMixConfig.fallbackImage)}
-                              alt={label}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => toggleModalImageHighlight(value)}
-                              onKeyDown={(event) => {
-                                if (event.key === 'Enter' || event.key === ' ') {
-                                  event.preventDefault();
-                                  toggleModalImageHighlight(value);
-                                }
-                              }}
-                            />
-                            <strong>{label}</strong>
-                            <div className="store-product-modal__quantity" aria-label={`Quantidade de ${value}`}>
-                              <button
-                                type="button"
-                                onClick={() => updateModalOptionQuantity(value, -1)}
-                              >
-                                -
-                              </button>
-                              <span>{optionQuantity}</span>
-                              <button
-                                type="button"
-                                onClick={() => updateModalOptionQuantity(value, 1)}
-                              >
-                                +
-                              </button>
+                                return (
+                                  <article
+                                    key={option}
+                                    className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === option ? ' is-image-highlighted' : ''}`}
+                                  >
+                                    <button
+                                      type="button"
+                                      className="store-product-modal__pack-select"
+                                      aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${option}`}
+                                      onClick={() => toggleModalOption(option)}
+                                    />
+                                    <img
+                                      src={getPackageImage(option, modalMixConfig.fallbackImage)}
+                                      alt={option}
+                                      role="button"
+                                      tabIndex={0}
+                                      onClick={() => toggleModalImageHighlight(option)}
+                                      onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                          event.preventDefault();
+                                          toggleModalImageHighlight(option);
+                                        }
+                                      }}
+                                    />
+                                    <strong>{option}</strong>
+                                    <div className="store-product-modal__quantity" aria-label={`Quantidade de ${option}`}>
+                                      <button
+                                        type="button"
+                                        onClick={() => updateModalOptionQuantity(option, -1)}
+                                      >
+                                        -
+                                      </button>
+                                      <span>{optionQuantity}</span>
+                                      <button
+                                        type="button"
+                                        onClick={() => updateModalOptionQuantity(option, 1)}
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </article>
+                                );
+                              })}
                             </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                      </section>
+                          </section>
+
+                          <section className="store-product-modal__option-section store-product-modal__option-section--zero">
+                            <div className="store-product-modal__section-heading">
+                              <span className="store-product-modal__section-icon">
+                                <img src={modalMixConfig.zeroIcon} alt="" />
+                              </span>
+                              <div>
+                                <span>Zero aÃ§Ãºcar</span>
+                                <small>OpÃ§Ãµes zero para clientes que buscam leveza no mix.</small>
+                              </div>
+                            </div>
+                            <div className="store-product-modal__pack-grid store-product-modal__pack-grid--zero">
+                              {modalMixConfig.zeroOptions.map(({ label, value }) => {
+                                const optionQuantity = modalOptionQuantities[value] || 0;
+                                const isSelected = optionQuantity > 0;
+
+                                return (
+                                  <article
+                                    key={value}
+                                    className={`store-product-modal__pack-card${isSelected ? ' is-selected' : ''}${highlightedModalOption === value ? ' is-image-highlighted' : ''}`}
+                                  >
+                                    <button
+                                      type="button"
+                                      className="store-product-modal__pack-select"
+                                      aria-label={`${isSelected ? 'Remover' : 'Selecionar'} ${value}`}
+                                      onClick={() => toggleModalOption(value)}
+                                    />
+                                    <img
+                                      src={getPackageImage(value, modalMixConfig.fallbackImage)}
+                                      alt={label}
+                                      role="button"
+                                      tabIndex={0}
+                                      onClick={() => toggleModalImageHighlight(value)}
+                                      onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                          event.preventDefault();
+                                          toggleModalImageHighlight(value);
+                                        }
+                                      }}
+                                    />
+                                    <strong>{label}</strong>
+                                    <div className="store-product-modal__quantity" aria-label={`Quantidade de ${value}`}>
+                                      <button
+                                        type="button"
+                                        onClick={() => updateModalOptionQuantity(value, -1)}
+                                      >
+                                        -
+                                      </button>
+                                      <span>{optionQuantity}</span>
+                                      <button
+                                        type="button"
+                                        onClick={() => updateModalOptionQuantity(value, 1)}
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </article>
+                                );
+                              })}
+                            </div>
+                          </section>
                         </>
                       )}
                     </div>
@@ -1591,3 +1665,6 @@ export default function Ecommerce({ onLogout }) {
     </main>
   );
 }
+
+
+

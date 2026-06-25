@@ -5,9 +5,18 @@ import Ecommerce from '../components/Ecommerce';
 export function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (isAuthenticated) {
-    return <Ecommerce onLogout={() => setIsAuthenticated(false)} />;
-  }
+  const page = isAuthenticated ? (
+    <Ecommerce onLogout={() => setIsAuthenticated(false)} />
+  ) : (
+    <Login onLogin={() => setIsAuthenticated(true)} />
+  );
 
-  return <Login onLogin={() => setIsAuthenticated(true)} />;
+  return (
+    <div className="app-shell">
+      <div className="app-shell__content">{page}</div>
+      <footer className="app-footer">
+        <span>© Coroa Store 2026.</span>
+      </footer>
+    </div>
+  );
 }
