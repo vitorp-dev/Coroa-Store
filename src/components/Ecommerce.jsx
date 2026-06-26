@@ -5,8 +5,8 @@ import iconBadWolf from '../assets/Icones/icon_bw.png';
 import promoTestIcon from '../assets/Icones/promo_test.jpeg';
 import bgCatalogo from '../assets/Icones/bg_catalogo.png';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
+// guaraná
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
-// iports de imagens individuais
 import pet2LImage from '../assets/Individuais/Guarana/pet_2L.png';
 import LataZeroImage from '../assets/Individuais/Guarana/lata_zero350ml.png';
 import PetZeroImage from '../assets/Individuais/Guarana/guarana_pet_zero.png';
@@ -15,11 +15,14 @@ import pet250mlImage from '../assets/Individuais/Guarana/pet _250ml.png';
 import pet600mlImage from '../assets/Individuais/Guarana/pet_600ml.png';
 import lata350mlImage from '../assets/Individuais/Guarana/lata_350ml.png';
 import pet15LImage from '../assets/Individuais/Guarana/pet_1,5L.png';
+// Cola Premium
 import cola15LImage from '../assets/Individuais/ColaPremium/cola_15.png';
 import Cola2LImage from '../assets/Individuais/ColaPremium/cola_2.png';
 import Cola250Image from '../assets/Individuais/ColaPremium/cola_250.png';
 import ColaLataZeroImage from '../assets/Individuais/ColaPremium/cola_lata_z.png';
+import ColaLataImage from '../assets/Individuais/ColaPremium/cola_lata.png'
 import Cola600Image from '../assets/Individuais/ColaPremium/cola_600.png';
+// Linha BW
 import BadWolfLata269Image from '../assets/Individuais/BadWolf/original/bw_lata269.png';
 import BadWolfLata473Image from '../assets/Individuais/BadWolf/original/bw_lata473.png';
 import BadWolfPet270Image from '../assets/Individuais/BadWolf/original/bw_pet270.png';
@@ -36,17 +39,20 @@ import BadWolfTropicalLata269Image from '../assets/Individuais/BadWolf/Tropical/
 import BadWolfTropicalLata473Image from '../assets/Individuais/BadWolf/Tropical/lata473.png';
 import BadWolfTropicalPet270Image from '../assets/Individuais/BadWolf/Tropical/pet270.png';
 import BadWolfTropicalPet2Image from '../assets/Individuais/BadWolf/Tropical/pet2.png';
+// Linha Sabores
 import CoroaSaboresLaranjaPet250Image from '../assets/Individuais/Sabores/Laranja/pet250.png';
 import CoroaSaboresLaranjaPet2Image from '../assets/Individuais/Sabores/Laranja/pet2l.png';
 import CoroaSaboresLimaoPet250Image from '../assets/Individuais/Sabores/Limao/pet250.png';
 import CoroaSaboresLimaoPet2Image from '../assets/Individuais/Sabores/Limao/pet2.png';
 import CoroaSaboresUvaPet250Image from '../assets/Individuais/Sabores/Uva/pet250.png';
 import CoroaSaboresUvaPet2Image from '../assets/Individuais/Sabores/Uva/pet2.png';
+// Linha Frish
 import FriishColaPet2Image from '../assets/Individuais/Friish/pet_cola.png';
 import FriishGuaranaPet2Image from '../assets/Individuais/Friish/pet_guaraná.png';
 import FriishLaranjaPet2Image from '../assets/Individuais/Friish/pet_laranja.png';
 import FriishLimaoPet2Image from '../assets/Individuais/Friish/pet_limao.png';
 import FriishUvaPet2Image from '../assets/Individuais/Friish/pet_uva.png';
+// Linha Iate
 import IateColaPet250Image from '../assets/Individuais/Iate/Cola/pet250.png';
 import IateColaPet2Image from '../assets/Individuais/Iate/Cola/pet2.png';
 import IateGuaranaPet250Image from '../assets/Individuais/Iate/Guarana/pet250.png';
@@ -57,6 +63,7 @@ import IateLimaoPet250Image from '../assets/Individuais/Iate/Limao/pet250.png';
 import IateLimaoPet2Image from '../assets/Individuais/Iate/Limao/pet2.png';
 import IateUvaPet250Image from '../assets/Individuais/Iate/Uva/pet250.png';
 import IateUvaPet2Image from '../assets/Individuais/Iate/Uva/pet2.png';
+// Linha campinho
 import CampinhoNaturalPet500Image from '../assets/Individuais/LinhaCampinho/Natual/pet500.png';
 import CampinhoNaturalCopo200Image from '../assets/Individuais/LinhaCampinho/Natual/copo200.png';
 import CampinhoNaturalPet15Image from '../assets/Individuais/LinhaCampinho/Natual/pet1,5.png';
@@ -64,10 +71,15 @@ import CampinhoNaturalPet25Image from '../assets/Individuais/LinhaCampinho/Natua
 import CampinhoNaturalPet5Image from '../assets/Individuais/LinhaCampinho/Natual/pet5.png';
 import CampinhoGaseificadaPet500Image from '../assets/Individuais/LinhaCampinho/Gaseificada/pet500.png';
 import CampinhoGaseificadaPet15Image from '../assets/Individuais/LinhaCampinho/Gaseificada/pet1,5.png';
+// Lemon, Tônica e Coroa Beer
 import LemonTonicaLemonPet500Image from '../assets/Individuais/LemonTonica/lemon500.png';
 import LemonTonicaTonicaLata350Image from '../assets/Individuais/LemonTonica/lata_tonica350.png';
 import LemonTonicaTonicaPet600Image from '../assets/Individuais/LemonTonica/pet_tonica600.png';
 import CoroaBeerGarrafa600Image from '../assets/Individuais/CoroaBeer/coroa_beer.png';
+import TeresenseIpaImage from '../assets/Individuais/Teresense/ipa.png';
+import TeresenseHeellesImage from '../assets/Individuais/Teresense/heelles.png';
+import TeresensePilsenImage from '../assets/Individuais/Teresense/pilsen.png';
+import TeresenseRedAleImage from '../assets/Individuais/Teresense/red_ale.png';
 // imports Catálogo
 import cardBadWolf from '../assets/Catalogo/card_bw.png';
 import AcompanhamentoPedidos from './AcompanhamentoPedidos';
@@ -233,18 +245,17 @@ const guaranaZeroOptions = [
 ];
 
 const coroaColaTraditionalOptions = [
-  'Coroa Cola 1,5L',
-  'Coroa Cola 2L',
-  'Coroa Cola 250ML',
-  'Coroa Cola LATA 350ML',
-  'Coroa Cola 600ML',
+  'PET 1,5L',
+  'PET 2L',
+  'PET 250ML',
+  'LATA 350ML',
+  'PET 600ML',
 ];
 
 const coroaColaZeroOptions = [
-  'Coroa Cola 2L ',
-  'Coroa Cola 250ML',
-  'Coroa Cola 600ML ',
-  'Coroa Cola LATA 350ML ',
+  'PET 2L ',
+  'LATA ZERO 350ML ',
+
 ];
 
 const badWolfPackageOptions = [
@@ -261,7 +272,7 @@ const coroaSaboresPackageOptions = [
 
 const coroaSaboresFlavorCategories = [
   'Laranja',
-  'LimÃ£o',
+  'Limão',
   'Uva',
 ];
 
@@ -271,9 +282,9 @@ const friishPackageOptions = [
 
 const friishFlavorCategories = [
   'Cola',
-  'GuaranÃ¡',
+  'Guaraná',
   'Laranja',
-  'LimÃ£o',
+  'Limão',
   'Uva',
 ];
 
@@ -284,9 +295,9 @@ const iatePackageOptions = [
 
 const iateFlavorCategories = [
   'Cola',
-  'GuaranÃ¡',
+  'Guaraná',
   'Laranja',
-  'LimÃ£o',
+  'Limão',
   'Uva',
 ];
 
@@ -304,7 +315,7 @@ const campinhoGaseificadaOptions = [
 ];
 
 const lemonTonicaLemonOptions = [
-  'PET 500ML',
+  'LEMON 500ML',
 ];
 
 const lemonTonicaTonicaOptions = [
@@ -316,9 +327,16 @@ const coroaBeerOptions = [
   'GARRAFA 600ML',
 ];
 
+const teresenseOptions = [
+  'IPA ML',
+  'HEELES600ML',
+  'PILSEN600ML',
+  'RED ALE600ML',
+];
+
 const badWolfFlavorCategories = [
   'Original',
-  'MaÃ§Ã£ verde',
+  'Maçã verde',
   'Melancia',
   'Tropical',
 ];
@@ -456,27 +474,33 @@ function getPackageIcon(option) {
 }
 
 function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
+  const isZeroOption = option.includes('Zero') || option.includes('ZERO');
+
+  // Coroa Sabores
   if (option.includes('Coroa Sabores Laranja') && option.includes('PET 250ML')) return CoroaSaboresLaranjaPet250Image;
   if (option.includes('Coroa Sabores Laranja') && option.includes('PET 2L')) return CoroaSaboresLaranjaPet2Image;
-  if (option.includes('Coroa Sabores LimÃ£o') && option.includes('PET 250ML')) return CoroaSaboresLimaoPet250Image;
-  if (option.includes('Coroa Sabores LimÃ£o') && option.includes('PET 2L')) return CoroaSaboresLimaoPet2Image;
+  if (option.includes('Coroa Sabores Limão') && option.includes('PET 250ML')) return CoroaSaboresLimaoPet250Image;
+  if (option.includes('Coroa Sabores Limão') && option.includes('PET 2L')) return CoroaSaboresLimaoPet2Image;
   if (option.includes('Coroa Sabores Uva') && option.includes('PET 250ML')) return CoroaSaboresUvaPet250Image;
   if (option.includes('Coroa Sabores Uva') && option.includes('PET 2L')) return CoroaSaboresUvaPet2Image;
+  // Linha Frish
   if (option.includes('Friish Cola')) return FriishColaPet2Image;
-  if (option.includes('Friish GuaranÃ¡')) return FriishGuaranaPet2Image;
+  if (option.includes('Friish Guaraná')) return FriishGuaranaPet2Image;
   if (option.includes('Friish Laranja')) return FriishLaranjaPet2Image;
-  if (option.includes('Friish LimÃ£o')) return FriishLimaoPet2Image;
+  if (option.includes('Friish Limão')) return FriishLimaoPet2Image;
   if (option.includes('Friish Uva')) return FriishUvaPet2Image;
+  // Linha Iate
   if (option.includes('Iate Cola') && option.includes('PET 250ML')) return IateColaPet250Image;
   if (option.includes('Iate Cola') && option.includes('PET 2L')) return IateColaPet2Image;
-  if (option.includes('Iate GuaranÃ¡') && option.includes('PET 250ML')) return IateGuaranaPet250Image;
-  if (option.includes('Iate GuaranÃ¡') && option.includes('PET 2L')) return IateGuaranaPet2Image;
+  if (option.includes('Iate Guaraná') && option.includes('PET 250ML')) return IateGuaranaPet250Image;
+  if (option.includes('Iate Guaraná') && option.includes('PET 2L')) return IateGuaranaPet2Image;
   if (option.includes('Iate Laranja') && option.includes('PET 250ML')) return IateLaranjaPet250Image;
   if (option.includes('Iate Laranja') && option.includes('PET 2L')) return IateLaranjaPet2Image;
-  if (option.includes('Iate LimÃ£o') && option.includes('PET 250ML')) return IateLimaoPet250Image;
-  if (option.includes('Iate LimÃ£o') && option.includes('PET 2L')) return IateLimaoPet2Image;
+  if (option.includes('Iate Limão') && option.includes('PET 250ML')) return IateLimaoPet250Image;
+  if (option.includes('Iate Limão') && option.includes('PET 2L')) return IateLimaoPet2Image;
   if (option.includes('Iate Uva') && option.includes('PET 250ML')) return IateUvaPet250Image;
   if (option.includes('Iate Uva') && option.includes('PET 2L')) return IateUvaPet2Image;
+  // Linha Campinho
   if (option.includes('Campinho Natural') && option.includes('PET 500ML')) return CampinhoNaturalPet500Image;
   if (option.includes('Campinho Natural') && option.includes('COPO 200ML')) return CampinhoNaturalCopo200Image;
   if (option.includes('Campinho Natural') && option.includes('PET 1,5L')) return CampinhoNaturalPet15Image;
@@ -484,14 +508,23 @@ function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Campinho Natural') && option.includes('PET 5L')) return CampinhoNaturalPet5Image;
   if (option.includes('Campinho Gaseificada') && option.includes('PET 500ML')) return CampinhoGaseificadaPet500Image;
   if (option.includes('Campinho Gaseificada') && option.includes('PET 1,5L')) return CampinhoGaseificadaPet15Image;
-  if ((option.includes('Lemon -') || option.includes('Lemon e TÃ´nica Lemon')) && option.includes('PET 500ML')) return LemonTonicaLemonPet500Image;
+  // Linha Lemon
+  if ((option.includes('Lemon -') || option.includes('LEMON 500ML') || option.includes('Lemon e TÃ´nica Lemon')) && option.includes('500ML')) return LemonTonicaLemonPet500Image;
+  // Linha Tônica
   if ((option.includes('Linha Tonica') || option.includes('Lemon e TÃ´nica TÃ´nica')) && option.includes('LATA 350ML')) return LemonTonicaTonicaLata350Image;
   if ((option.includes('Linha Tonica') || option.includes('Lemon e TÃ´nica TÃ´nica')) && option.includes('PET 600ML')) return LemonTonicaTonicaPet600Image;
+  // Coroa Beer
   if (option.includes('Coroa Beer') && option.includes('GARRAFA 600ML')) return CoroaBeerGarrafa600Image;
-  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
-  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
-  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
-  if (option.includes('Bad Wolf MaÃ§Ã£ verde') && option.includes('PET 2L')) return BadWolfMacaVerdePet2Image;
+  // Cervejaria Teresense
+  if (option.includes('Teresense') && option.includes('IPA ML')) return TeresenseIpaImage;
+  if (option.includes('Teresense') && option.includes('HEELES600ML')) return TeresenseHeellesImage;
+  if (option.includes('Teresense') && option.includes('PILSEN600ML')) return TeresensePilsenImage;
+  if (option.includes('Teresense') && option.includes('RED ALE600ML')) return TeresenseRedAleImage;
+  // Linha BW
+  if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 269ML')) return BadWolfMacaVerdeLata269Image;
+  if (option.includes('Bad Wolf Maçã verde') && option.includes('Lata 473ML')) return BadWolfMacaVerdeLata473Image;
+  if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 270ML')) return BadWolfMacaVerdePet270Image;
+  if (option.includes('Bad Wolf Maçã verde') && option.includes('PET 2L')) return BadWolfMacaVerdePet2Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('Lata 269ML')) return BadWolfMelanciaLata269Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('Lata 473ML')) return BadWolfMelanciaLata473Image;
   if (option.includes('Bad Wolf Melancia') && option.includes('PET 270ML')) return BadWolfMelanciaPet270Image;
@@ -505,20 +538,23 @@ function getPackageImage(option, fallbackImage = CardCoroaColaPremium) {
   if (option.includes('Bad Wolf') && option.includes('PET 270ML')) return BadWolfPet270Image;
   if (option.includes('Bad Wolf') && option.includes('PET 2L')) return BadWolfPet2Image;
   if (option.includes('Bad Wolf')) return fallbackImage;
+  // Linha Guaraná
   if (fallbackImage === cardGuarana) {
     if (option.includes('2L')) return option.includes('Zero') || option.includes('ZERO') ? PetZeroImage : pet2LImage;
     if (option.includes('1,5L')) return pet15LImage;
     if (option.includes('250ML')) return pet250mlImage;
+    if (option.includes('2,5L')) return pet25LImage;
     if (option.includes('600ML')) return pet600mlImage;
     if (option.includes('LATA')) return option.includes('Zero') || option.includes('ZERO') ? LataZeroImage : lata350mlImage;
   }
+  // Cola Premium
   if (option === 'Coroa Cola 1,5L') return cola15LImage;
   if (option.includes('2L')) return Cola2LImage;
   if (option.includes('1,5L')) return pet15LImage;
   if (option.includes('250ML')) return Cola250Image;
   if (option.includes('600ML')) return Cola600Image;
-  if (option.includes('Coroa Cola') && option.includes('LATA')) return ColaLataZeroImage;
-  if (option.includes('LATA')) return option.includes('Zero') || option.includes('ZERO') ? LataZeroImage : lata350mlImage;
+  if (option.includes('LATA') && isZeroOption) return ColaLataZeroImage;
+  if (option.includes('LATA')) return ColaLataImage;
 
   return fallbackImage;
 }
@@ -544,14 +580,14 @@ function getModalMixConfig(product) {
       zeroOptions,
       sections: [
         {
-          title: 'Linha tradicional',
-          description: 'Formatos para consumo individual, familia e abastecimento.',
+          title: 'Linha Tradicional',
+          description: 'Selecione as opções desejadas e quantidade.',
           icon: iconGuarana,
           options: traditionalOptions.map((option) => ({ label: option, value: option })),
         },
         {
-          title: 'Zero aÃ§Ãºcar',
-          description: 'OpÃ§Ãµes zero para clientes que buscam leveza no mix.',
+          title: 'Zero Açucar',
+          description: 'Selecione as opções desejadas e quantidade.',
           icon: iconGuarana,
           className: 'store-product-modal__option-section--zero',
           gridClassName: 'store-product-modal__pack-grid--zero',
@@ -560,7 +596,7 @@ function getModalMixConfig(product) {
       ],
     };
   }
-  // Card Coroa Cola Premium
+
   if (product.image === CardCoroaColaPremium) {
     const traditionalOptions = coroaColaTraditionalOptions;
     const zeroOptions = coroaColaZeroOptions.map((option) => ({
@@ -578,13 +614,13 @@ function getModalMixConfig(product) {
       sections: [
         {
           title: 'Linha tradicional',
-          description: 'Formatos para consumo individual, familia e abastecimento.',
+          description: 'Selecione as opções desejadas e quantidade.',
           icon: iconColaPremium,
           options: traditionalOptions.map((option) => ({ label: option, value: option })),
         },
         {
-          title: 'Zero aÃ§Ãºcar',
-          description: 'OpÃ§Ãµes zero para clientes que buscam leveza no mix.',
+          title: 'Zero Açucar',
+          description: 'Selecione as opções desejadas e quantidade.',
           icon: iconColaPremium,
           className: 'store-product-modal__option-section--zero',
           gridClassName: 'store-product-modal__pack-grid--zero',
@@ -597,7 +633,7 @@ function getModalMixConfig(product) {
   if (product.image === CardSabores) {
     const sections = coroaSaboresFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'OpÃ§Ãµes de embalagem para montar o mix da linha Coroa Sabores.',
+      description: 'Selecione as opções desejadas e quantidade.',
       icon: CardSabores,
       options: coroaSaboresPackageOptions.map((option) => ({
         label: option,
@@ -618,7 +654,7 @@ function getModalMixConfig(product) {
   if (product.image === CardFrish) {
     const sections = friishFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'OpÃ§Ã£o PET 2L para montar o mix da linha Frish.',
+      description: 'Selecione as opções desejadas e quantidade.',
       icon: CardFrish,
       options: friishPackageOptions.map((option) => ({
         label: option,
@@ -639,7 +675,7 @@ function getModalMixConfig(product) {
   if (product.image === CardIate) {
     const sections = iateFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'OpÃ§Ãµes PET 250ML e PET 2L para montar o mix da linha Iate.',
+      description: 'Selecione as opções desejadas e quantidade.',
       icon: CardIate,
       options: iatePackageOptions.map((option) => ({
         label: option,
@@ -661,7 +697,7 @@ function getModalMixConfig(product) {
     const sections = [
       {
         title: 'Natural',
-        description: 'OpÃ§Ãµes de Ã¡gua natural para montar o mix da linha Campinho.',
+        description: 'Selecione as opções desejadas e quantidade;',
         icon: CardCampinho,
         options: campinhoNaturalOptions.map((option) => ({
           label: option,
@@ -670,7 +706,7 @@ function getModalMixConfig(product) {
       },
       {
         title: 'Gaseificada',
-        description: 'OpÃ§Ãµes de Ã¡gua gaseificada para montar o mix da linha Campinho.',
+        description: 'Selecione as opções desejadas e quantidade.',
         icon: CardCampinho,
         options: campinhoGaseificadaOptions.map((option) => ({
           label: option,
@@ -682,18 +718,18 @@ function getModalMixConfig(product) {
     return {
       brandImage: CardCampinho,
       fallbackImage: CardCampinho,
-      ariaLabel: 'Opcoes da Linha Campinho',
+      ariaLabel: 'Selecione as opções desejadas e quantidade;',
       traditionalOptions: [sections[0].options[0].value],
       zeroOptions: [],
       sections,
     };
   }
 
-  if (product.image === CampinhoTonica && product.name === 'Lemon') {
+  if (product.image === CampinhoTonica) {
     const sections = [
       {
         title: 'Lemon',
-        description: 'Opcao PET 500ML para montar o mix da linha Lemon.',
+        description: 'Selecione as opções desejadas e quantidade;.',
         icon: CampinhoTonica,
         options: lemonTonicaLemonOptions.map((option) => ({
           label: option,
@@ -705,18 +741,18 @@ function getModalMixConfig(product) {
     return {
       brandImage: CampinhoTonica,
       fallbackImage: CampinhoTonica,
-      ariaLabel: 'Opcoes da Linha Lemon',
+      ariaLabel: 'Selecione as opções desejadas e quantidade;',
       traditionalOptions: [sections[0].options[0].value],
       zeroOptions: [],
       sections,
     };
   }
 
-  if (product.image === CardTonica && product.name === 'Linha Tonica') {
+  if (product.image === CardTonica) {
     const sections = [
       {
         title: 'Tonica',
-        description: 'Opcoes lata e PET para montar o mix da linha Tonica.',
+        description: 'Selecione as opções desejadas e quantidade.',
         icon: CardTonica,
         options: lemonTonicaTonicaOptions.map((option) => ({
           label: option,
@@ -739,7 +775,7 @@ function getModalMixConfig(product) {
     const sections = [
       {
         title: 'Coroa Beer',
-        description: 'OpÃ§Ã£o garrafa 600ML para montar o mix da linha Coroa Beer.',
+        description: 'Selecione as opções desejadas e quantidade.',
         icon: CardCoroaBeer,
         options: coroaBeerOptions.map((option) => ({
           label: option,
@@ -758,10 +794,33 @@ function getModalMixConfig(product) {
     };
   }
 
+  if (product.image === CardArtesanais) {
+    const sections = [
+      {
+        title: 'Cervejaria Teresense',
+        description: 'Selecione as opções desejadas e quantidade.',
+        icon: CardArtesanais,
+        options: teresenseOptions.map((option) => ({
+          label: option,
+          value: `Teresense - ${option}`,
+        })),
+      },
+    ];
+
+    return {
+      brandImage: CardArtesanais,
+      fallbackImage: CardArtesanais,
+      ariaLabel: 'Opcoes da Cervejaria Teresense',
+      traditionalOptions: [sections[0].options[0].value],
+      zeroOptions: [],
+      sections,
+    };
+  }
+
   if (product.image === cardBadWolf) {
     const sections = badWolfFlavorCategories.map((flavor) => ({
       title: flavor,
-      description: 'OpÃ§Ãµes de embalagem para montar o mix da linha Bad Wolf.',
+      description: 'Selecione as opções desejadas e quantidade.',
       icon: iconBadWolf,
       options: badWolfPackageOptions.map((option) => ({
         label: option,
@@ -795,7 +854,7 @@ export default function Ecommerce({ onLogout }) {
   const [highlightedModalOption, setHighlightedModalOption] = useState('');
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
   const [productOptions, setProductOptions] = useState({
-    'GuaranÃ¡ Coroa': { size: '250ml', type: 'Normal' },
+    'Guaraná Coroa': { size: '250ml', type: 'Normal' },
   });
 
   const cartTotal = cartItems.reduce(
@@ -1187,13 +1246,13 @@ export default function Ecommerce({ onLogout }) {
               </div>
             </div>
 
-            <div className="store-product-grid">
+            <div className={`store-product-grid${selectedCategory === 'Todas' ? ' store-product-grid--all' : ''}`}>
               {filteredProducts.map((product) => (
                 <article
                   key={product.name}
                   className={`store-product-card${product.image === cardGuarana ? ' store-product-card--guarana' : 
                   ''}${product.image === CardFrish ? ' store-product-card--frish' : ''}${product.image === CardIate ? ' store-product-card--iate' :
-                 ''}${product.image === CardTonica ? ' store-product-card--tonica' : ''}${product.image === CardCoroaBeer ? ' store-product-card--coroa-beer' : ''}${expandedProduct === product.name ? ' store-product-card--expanded' : ''}`}
+                 ''}${product.image === CardTonica ? ' store-product-card--tonica' : ''}${product.image === CardCoroaBeer ? ' store-product-card--coroa-beer' : ''}${product.image === CardArtesanais ? ' store-product-card--teresense' : ''}${product.image === CardLafruit ? ' store-product-card--lafruit' : ''}${product.image === CardTampico ? ' store-product-card--tampico' : ''}${expandedProduct === product.name ? ' store-product-card--expanded' : ''}`}
                  onClick={() => openProductModal(product)}
                 >
                   {product.showImage ? (

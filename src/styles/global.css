@@ -371,6 +371,7 @@ a {
 .login-hero__content {
   max-width: 600px;
   padding: 12px 0 28px;
+  transform: translateX(-28px);
 }
 
 .login-hero__title {
@@ -462,7 +463,7 @@ a {
 }
 
 .login-hero__title-glow {
-  margin-left: clamp(72px, 9vw, 150px);
+  margin-left: clamp(36px, 5vw, 84px);
   color: #ffffff;
   text-shadow:
     1px 1px 0 #0c2e27,
@@ -1535,22 +1536,12 @@ a {
   overflow: hidden;
   margin-bottom: 24px;
   border: 1px solid rgba(22, 122, 80, 0.1);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.34) 0%, rgba(238, 248, 242, 0.28) 48%, rgba(220, 238, 228, 0.34) 100%),
-    var(--store-catalog-bg) center / cover no-repeat,
-    rgba(246, 252, 248, 0.98);
+  background: var(--store-catalog-bg) center / cover no-repeat;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), 0 18px 44px rgba(14, 56, 42, 0.08);
 }
 
 .store-catalog::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(circle at 22% 16%, rgba(255, 255, 255, 0.24), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(234, 248, 241, 0.06));
-  pointer-events: none;
+  content: none;
 }
 
 .store-catalog > * {
@@ -1765,11 +1756,23 @@ a {
 
 .store-product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: stretch;
   justify-content: center;
   gap: clamp(10px, 1vw, 14px);
   width: 100%;
+}
+
+.store-product-grid--all .store-product-card--teresense {
+  grid-column: 2;
+}
+
+.store-product-grid--all .store-product-card--lafruit {
+  grid-column: 3;
+}
+
+.store-product-grid--all .store-product-card--tampico {
+  grid-column: 4;
 }
 
 .store-catalog__empty {
@@ -1837,17 +1840,11 @@ a {
   display: grid;
   place-items: center;
   padding: 12px;
-  background:
-    radial-gradient(circle at 50% 36%, rgba(22, 166, 104, 0.16), transparent 44%),
-    linear-gradient(180deg, #f8fcfa, #edf8f2);
+  background: transparent;
 }
 
 .store-product-card__image::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(18, 55, 45, 0.08), transparent);
+  content: none;
 }
 
 .store-product-card__placeholder {
@@ -1902,11 +1899,16 @@ a {
   transform: translateY(calc(var(--store-card-image-y) - 1px));
 }
 
-.store-product-card--guarana,
 .store-product-card--frish,
 .store-product-card--iate {
   --store-card-image-width: calc(100% - 72px);
   --store-card-image-height: calc(100% - 38px);
+}
+
+.store-product-card--guarana {
+  --store-card-image-width: calc(100% - 86px);
+  --store-card-image-height: calc(100% - 48px);
+  --store-card-image-y: -8px;
 }
 
 .store-product-card--tonica {
@@ -1917,6 +1919,18 @@ a {
 .store-product-card--coroa-beer {
   --store-card-image-width: calc(100% - 86px);
   --store-card-image-height: calc(100% - 50px);
+}
+
+.store-product-card--teresense {
+  --store-card-image-width: calc(100% - 74px);
+  --store-card-image-height: calc(100% - 42px);
+  --store-card-image-y: 0px;
+}
+
+.store-product-card--lafruit {
+  --store-card-image-width: calc(100% - 72px);
+  --store-card-image-height: calc(100% - 38px);
+  --store-card-image-y: 0px;
 }
 
 .store-product-card__icon {
@@ -3848,7 +3862,7 @@ a {
   }
 
   .store-product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -3906,7 +3920,7 @@ a {
   }
 
   .store-product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .store-cart__content {
@@ -3944,11 +3958,27 @@ a {
   }
 }
 
+@media (max-width: 767px) {
+  .store-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .store-product-grid--all .store-product-card--teresense,
+  .store-product-grid--all .store-product-card--lafruit,
+  .store-product-grid--all .store-product-card--tampico {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 560px) {
   .app-footer {
     flex-direction: column;
     gap: 2px;
     padding-block: 12px;
+  }
+
+  .store-product-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -4064,6 +4094,7 @@ a {
 
   .login-hero__content {
     padding-top: 0;
+    transform: none;
   }
 
   .login-hero__title {
@@ -4071,7 +4102,7 @@ a {
   }
 
   .login-hero__title-glow {
-    margin-left: clamp(44px, 16vw, 96px);
+    margin-left: clamp(28px, 10vw, 72px);
   }
 
   .login-panel {

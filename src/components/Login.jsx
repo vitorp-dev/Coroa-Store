@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
-import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 import Produtos from './Produtos';
 
 const demoCredentials = {
@@ -136,12 +135,9 @@ function Icon({ type }) {
 
 function BrandMark() {
   return (
-    <div className="login-brandmark" aria-label="Grupo Coroa">
+    <div className="login-brandmark" aria-label="Coroa Store">
       <span>
         <strong>Coroa</strong> Store
-      </span>
-      <span className="login-brandmark__icon">
-        <img src={titleCrownIcon} alt="Icone Coroa" />
       </span>
     </div>
   );
@@ -186,10 +182,9 @@ function HeroSection() {
     <section className="login-hero" aria-labelledby="login-hero-title">
       <div className="login-hero__content">
         <h1 id="login-hero-title" className="login-hero__title">
-          <span>Conecte-se</span>
-          <span>Com o Melhor</span>
-          <span className="login-hero__title-glow">do</span>
-          <span className="login-hero__title-accent">Grupo Coroa</span>
+          <span>O melhor</span>
+          <span>momento</span>
+          <span className="login-hero__title-glow">é agora</span>
         </h1>
 
         <span className="login-hero__divider" />
@@ -237,10 +232,6 @@ function LoginPanel({ onLogin }) {
 
   return (
     <section id="login-card" className="login-panel" aria-labelledby="login-title">
-      <div className="login-panel__badge">
-        <img src={titleCrownIcon} alt="" />
-      </div>
-
       <div className="login-panel__header">
         <span className="login-pill">
           <span className="login-icon login-icon--small">
