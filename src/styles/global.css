@@ -1807,18 +1807,20 @@ a {
   min-height: 100%;
   border: 1px solid rgba(10, 58, 45, 0.1);
   border-radius: 10px;
-  background:
-    linear-gradient(180deg, #ffffff, #fbfdfc);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(251, 253, 252, 0.46));
+  backdrop-filter: blur(6px);
   box-shadow:
     0 1px 1px rgba(18, 55, 45, 0.04),
     0 18px 38px rgba(18, 55, 45, 0.08);
   cursor: pointer;
   isolation: isolate;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease, backdrop-filter 180ms ease;
 }
 
 .store-product-card:hover {
   border-color: rgba(9, 112, 80, 0.26);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(251, 253, 252, 0.6));
+  backdrop-filter: blur(8px);
   box-shadow:
     0 4px 12px rgba(18, 55, 45, 0.08),
     0 24px 54px rgba(18, 55, 45, 0.14);
