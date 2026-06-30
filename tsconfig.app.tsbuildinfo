@@ -1,1 +1,1 @@
-{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/app/app.tsx","./src/components/acompanhamentopedidos.jsx","./src/components/ecommerce.jsx","./src/components/login.jsx","./src/components/logintitle.jsx","./src/components/produtos.jsx"],"version":"5.9.3"}
+{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/app/app.tsx","./src/components/acompanhamentopedidos.jsx","./src/components/comercialpedidos.jsx","./src/components/ecommerce.jsx","./src/components/login.jsx","./src/components/logintitle.jsx","./src/components/produtos.jsx"],"version":"5.9.3"}

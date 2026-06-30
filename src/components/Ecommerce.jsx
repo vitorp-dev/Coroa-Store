@@ -4,6 +4,7 @@ import iconGuarana from '../assets/Icones/icon_guarana.png';
 import iconBadWolf from '../assets/Icones/icon_bw.png';
 import promoTestIcon from '../assets/Icones/promo_test.jpeg';
 import bgCatalogo from '../assets/Icones/bg_catalogo.png';
+import catalogTitleImage from '../assets/Icones/titulo_catalogo.png';
 import titleCrownIcon from '../assets/Imagenslogin/icon_coroa.png';
 // guaraná
 import cardGuarana from '../assets/Catalogo/card_guarana.png';
@@ -100,7 +101,6 @@ const ecommerceProducts = [
   // card 01 Guarana Coroa
   {
     name: 'Guaraná Coroa',
-    description: 'Linha Completa de Refrigerantes Sabor Guaraná.',
     price: 'R$ 12,50',
     image: cardGuarana,
     showImage: true,
@@ -110,7 +110,6 @@ const ecommerceProducts = [
   // card 02 Coroa Cola Premium
   {
     name: 'Coroa Cola Premium',
-    description: 'Linha Completa de Refrigerantes Sabor Cola.',
     price: 'R$ 174,20',
     image: CardCoroaColaPremium,
     showImage: true,
@@ -120,7 +119,6 @@ const ecommerceProducts = [
   // card 03 linha Bad Wolf
   {
     name: 'Energéticos Bad Wolf',
-    description: 'Linha Completa de Energéticos Bad Wolf.',
     price: 'R$ 142,50',
     image: cardBadWolf,
     showImage: true,
@@ -131,7 +129,6 @@ const ecommerceProducts = [
   // card 04 Linha Coroa Sabores
   {
     name: 'Coroa Sabores',
-    description: 'Linha Completa de Refrigerantes Coroa Sabores.',
     price: 'R$ 156,80',
     image: CardSabores,
     showImage: true,
@@ -141,7 +138,7 @@ const ecommerceProducts = [
   // card 05 Linha Frish
   {
     name: 'Coroa Friish',
-    description: 'Linha Completa de Refrigerantes Coroa Friish.',
+
     price: 'R$ 188,40',
     image: CardFrish,
     showImage: true,
@@ -151,7 +148,6 @@ const ecommerceProducts = [
   // card 06 Linha Iate
   {
     name: 'Coroa Iate',
-    description: 'Linha Completa de Refrigerantes Coroa Iate.',
     price: 'R$ 188,40',
     image: CardIate,
     showImage: true,
@@ -161,7 +157,6 @@ const ecommerceProducts = [
   // card 07 Linha Campinho
   {
     name: 'Linha Campinho',
-    description: 'Linha Completa de Águas Campinho.',
     price: 'R$ 96,40',
     image: CardCampinho,
     showImage: true,
@@ -171,7 +166,6 @@ const ecommerceProducts = [
   // card 08 Lemon
   {
     name: ' CampinhoLemon',
-    description: 'Linha Campinho Lemon.',
     price: 'R$ 82,90',
     image: CampinhoTonica,
     showImage: true,
@@ -181,7 +175,6 @@ const ecommerceProducts = [
   // card 09 Linha Tonica
   {
     name: 'Água Tônica',
-    description: 'Linha Águas Tônicas.',
     price: 'R$ 82,90',
     image: CardTonica,
     showImage: true,
@@ -191,7 +184,6 @@ const ecommerceProducts = [
   // card 10 Coroa Beer
   {
     name: 'Coroa Beer',
-    description: 'Linha Coroa Beer.',
     price: 'R$ 132,60',
     image: CardCoroaBeer,
     showImage: true,
@@ -201,7 +193,6 @@ const ecommerceProducts = [
   // card 11 teresense
   {
     name: 'Cervejaria Teresense',
-    description: 'Linha Completa de Produtos artesanais.',
     price: 'R$ 164,30',
     image: CardArtesanais,
     showImage: true,
@@ -211,7 +202,6 @@ const ecommerceProducts = [
   // card 12 Linha La Fuit
   {
     name: 'Linha La Fuit',
-    description: 'Linha Completa de Sucos La Fuit.',
     price: 'R$ 246,90',
     image: CardLafruit,
     showImage: true,
@@ -221,7 +211,6 @@ const ecommerceProducts = [
   // Linha Tampico
   {
     name: 'Linha Tampico',
-    description: 'Linha Completa de Sucos Tampico.',
     price: 'R$ 118,50',
     image: CardTampico,
     showImage: true,
@@ -841,10 +830,11 @@ function getModalMixConfig(product) {
   return null;
 }
 
-export default function Ecommerce({ onLogout }) {
+export default function Ecommerce({ currentUser, onLogout, trackedOrders, setTrackedOrders }) {
   const [isCatalogCategoryOpen, setIsCatalogCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [cartItems, setCartItems] = useState([]);
+  const [editingOrderId, setEditingOrderId] = useState('');
   const [orderStatus, setOrderStatus] = useState('');
   const [currentScreen, setCurrentScreen] = useState('catalogo');
   const [expandedProduct, setExpandedProduct] = useState('');
@@ -1066,14 +1056,67 @@ export default function Ecommerce({ onLogout }) {
     setOrderStatus('');
   }
 
+  function editOrder(order) {
+    setCartItems(order.lineItems.map((item) => ({ ...item })));
+    setEditingOrderId(order.id);
+    setCurrentScreen('catalogo');
+    setOrderStatus(`Editando pedido ${order.id}. Ajuste os itens e confirme novamente.`);
+
+    requestAnimationFrame(() => {
+      document.getElementById('carrinho')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
   function confirmOrder() {
     if (!cartItems.length) {
       setOrderStatus('Adicione pelo menos um produto para confirmar o pedido.');
       return;
     }
 
-    setOrderStatus(`Pedido confirmado com ${cartQuantity} item(ns), total de ${formatCurrency(cartTotal)}.`);
+    const nextOrderNumber = trackedOrders.reduce((highest, order) => {
+      const numericId = Number.parseInt(order.id.replace(/\D/g, ''), 10);
+      return Number.isNaN(numericId) ? highest : Math.max(highest, numericId);
+    }, 1048) + 1;
+    const currentOrderId = editingOrderId || `#GC-${nextOrderNumber}`;
+    const orderLineItems = cartItems.map((item) => ({ ...item }));
+
+    const newTrackedOrder = {
+      id: currentOrderId,
+      status: 'Aguardando aprovação do pedido',
+      customer: 'Cliente Coroa',
+      customerEmail: currentUser.email,
+      total: formatCurrency(cartTotal),
+      items: `${cartQuantity} item(ns)`,
+      eta: 'Pedido enviado agora para aprovação comercial',
+      progress: 18,
+      canEdit: true,
+      lineItems: orderLineItems,
+      steps: [
+        { label: 'Pedido enviado', time: 'Agora', done: true },
+        { label: 'Aguardando aprovação do pedido', time: 'Em análise', done: false },
+        { label: 'Faturamento', time: 'Aguardando', done: false },
+        { label: 'Separação', time: 'Aguardando', done: false },
+      ],
+    };
+
+    setTrackedOrders((currentOrders) => {
+      if (editingOrderId) {
+        return currentOrders.map((order) => (order.id === editingOrderId ? newTrackedOrder : order));
+      }
+
+      return [newTrackedOrder, ...currentOrders];
+    });
+    setOrderStatus(
+      editingOrderId
+        ? `Pedido ${currentOrderId} atualizado com ${cartQuantity} item(ns), total de ${formatCurrency(cartTotal)}.`
+        : `Pedido confirmado com ${cartQuantity} item(ns), total de ${formatCurrency(cartTotal)}.`,
+    );
     setCartItems([]);
+    setEditingOrderId('');
+    setCurrentScreen('pedidos');
   }
 
   function goToCart() {
@@ -1134,6 +1177,38 @@ export default function Ecommerce({ onLogout }) {
             <StoreIcon type="cart" />
             Carrinho
           </a>
+
+          <div className="store-category store-category--topbar">
+            <button
+              type="button"
+              className="store-nav__link store-category__trigger"
+              aria-expanded={isCatalogCategoryOpen}
+              aria-haspopup="menu"
+              onClick={() => setIsCatalogCategoryOpen((current) => !current)}
+            >
+              Categorias
+            </button>
+
+            {isCatalogCategoryOpen ? (
+              <div className="store-category__menu" role="menu">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    role="menuitem"
+                    className={category === selectedCategory ? 'is-active' : ''}
+                    onClick={() => {
+                      setCurrentScreen('catalogo');
+                      setSelectedCategory(category);
+                      setIsCatalogCategoryOpen(false);
+                    }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </nav>
 
         <div className="store-session">
@@ -1141,13 +1216,13 @@ export default function Ecommerce({ onLogout }) {
             <span>GC</span>
             <div>
               <strong>Cliente Coroa</strong>
-              <small>Clientegrupos</small>
+              <small>{currentUser?.email || 'clientegrupos'}</small>
             </div>
             <span className="store-session__chevron" aria-hidden="true">v</span>
           </div>
 
           <button type="button" className="store-logout" onClick={onLogout}>
-            <span aria-hidden="true">â†ª</span>
+            <span aria-hidden="true"></span>
             Sair
           </button>
         </div>
@@ -1164,7 +1239,11 @@ export default function Ecommerce({ onLogout }) {
       </button>
 
       {currentScreen === 'pedidos' ? (
-        <AcompanhamentoPedidos onBackToCatalog={() => setCurrentScreen('catalogo')} />
+        <AcompanhamentoPedidos
+          onEditOrder={editOrder}
+          trackedOrders={trackedOrders.filter((order) => order.customerEmail === currentUser.email)}
+          onBackToCatalog={() => setCurrentScreen('catalogo')}
+        />
       ) : (
         <>
           <section
@@ -1177,7 +1256,11 @@ export default function Ecommerce({ onLogout }) {
               <div className="store-section-title">
                 <span>Catalogo</span>
                 <h2 id="catalog-title" className="store-catalog-title">
-                   Marcas e Produtos
+                  <img
+                    className="store-catalog-title__image"
+                    src={catalogTitleImage}
+                    alt="Marcas e Produtos"
+                  />
                 </h2>
               </div>
               <button
@@ -1213,37 +1296,6 @@ export default function Ecommerce({ onLogout }) {
                   </svg>
                 </span>
               </button>
-              <div className="store-category store-category--catalog">
-                <button
-                  type="button"
-                  className="store-view-all store-category__trigger"
-                  aria-expanded={isCatalogCategoryOpen}
-                  aria-haspopup="menu"
-                  onClick={() => setIsCatalogCategoryOpen((current) => !current)}
-                >
-                  Categorias
-                </button>
-
-                {isCatalogCategoryOpen ? (
-                  <div className="store-category__menu" role="menu">
-                    {categories.map((category) => (
-                      <button
-                        key={category}
-                        type="button"
-                        role="menuitem"
-                        className={category === selectedCategory ? 'is-active' : ''}
-                        onClick={() => {
-                          setCurrentScreen('catalogo');
-                          setSelectedCategory(category);
-                          setIsCatalogCategoryOpen(false);
-                        }}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
             </div>
 
             <div className={`store-product-grid${selectedCategory === 'Todas' ? ' store-product-grid--all' : ''}`}>
@@ -1603,8 +1655,8 @@ export default function Ecommerce({ onLogout }) {
                                 <img src={modalMixConfig.zeroIcon} alt="" />
                               </span>
                               <div>
-                                <span>Zero aÃ§Ãºcar</span>
-                                <small>OpÃ§Ãµes zero para clientes que buscam leveza no mix.</small>
+                                <span>Zero Açucarcar</span>
+                                <small>Opções zero para clientes que buscam leveza no mix.</small>
                               </div>
                             </div>
                             <div className="store-product-modal__pack-grid store-product-modal__pack-grid--zero">

@@ -1,11 +1,28 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
+import brandImage from '../assets/icones/coroa_store.png';
 import Produtos from './Produtos';
 
-const demoCredentials = {
-  email: 'cliente@coroastore.com',
-  password: 'coroa123',
-};
+const demoCredentials = [
+  {
+    email: 'cliente@coroastore.com',
+    password: 'coroa123',
+    role: 'cliente',
+    name: 'Cliente Coroa',
+  },
+  {
+    email: 'comercial@coroastore.com',
+    password: 'coroa123',
+    role: 'comercial',
+    name: 'Equipe Comercial',
+  },
+  {
+    email: 'admin@coroastore.com',
+    password: 'coroa123',
+    role: 'admin',
+    name: 'Administrador Coroa',
+  },
+];
 
 const navItems = [
   { label: 'Acessar', href: '#login-email' },
@@ -136,9 +153,7 @@ function Icon({ type }) {
 function BrandMark() {
   return (
     <div className="login-brandmark" aria-label="Coroa Store">
-      <span>
-        <strong>Coroa</strong> Store
-      </span>
+      <img src={brandImage} alt="Coroa Store" className="login-brandmark__image" />
     </div>
   );
 }
@@ -182,15 +197,15 @@ function HeroSection() {
     <section className="login-hero" aria-labelledby="login-hero-title">
       <div className="login-hero__content">
         <h1 id="login-hero-title" className="login-hero__title">
-          <span>O melhor</span>
-          <span>momento</span>
-          <span className="login-hero__title-glow">é agora</span>
+          <span>Seu pedido,</span>
+          <span>mais rápido e</span>
+          <span className="login-hero__title-glow">sem complicação</span>
         </h1>
 
         <span className="login-hero__divider" />
 
         <p className="login-hero__copy">
-          Centralize e acompanhe seus pedidos!
+          Acesse o catálogo, acompanhe ofertas exclusivas e centralize seus pedidos em uma plataforma criada para facilitar a rotina dos clientes do Grupo Coroa.
         </p>
 
         <div className="login-hero__features" aria-label="Beneficios principais">
@@ -217,17 +232,19 @@ function LoginPanel({ onLogin }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const isValidLogin =
-      email.trim().toLowerCase() === demoCredentials.email &&
-      password === demoCredentials.password;
+    const matchedCredential = demoCredentials.find(
+      (credential) =>
+        email.trim().toLowerCase() === credential.email &&
+        password === credential.password,
+    );
 
-    if (!isValidLogin) {
-      setError('E-mail ou senha invalidos. Use cliente@coroastore.com / coroa123.');
+    if (!matchedCredential) {
+      setError('E-mail ou senha invalidos. Use cliente, comercial ou admin com a senha coroa123.');
       return;
     }
 
     setError('');
-    onLogin();
+    onLogin(matchedCredential);
   }
 
   return (
@@ -296,9 +313,10 @@ function LoginPanel({ onLogin }) {
 
         {error ? <p className="login-form__error">{error}</p> : null}
 
+
         <button type="submit" className="login-submit">
           Entrar agora
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true">â†’</span>
         </button>
 
         <button type="button" className="login-request-access">
@@ -666,3 +684,4 @@ export default function Login({ onLogin }) {
     </main>
   );
 }
+

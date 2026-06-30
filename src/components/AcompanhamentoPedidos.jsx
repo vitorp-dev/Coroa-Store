@@ -1,52 +1,14 @@
-const trackedOrders = [
-  {
-    id: '#GC-1048',
-    status: 'Em separacao',
-    customer: 'Cliente Coroa',
-    total: 'R$ 1.254,30',
-    items: '12 itens',
-    eta: 'Entrega prevista hoje, 17:30',
-    progress: 68,
-    steps: [
-      { label: 'Pedido recebido', time: 'Hoje, 10:42', done: true },
-      { label: 'Pagamento aprovado', time: 'Hoje, 10:49', done: true },
-      { label: 'Separacao', time: 'Em andamento', done: true },
-      { label: 'Saiu para entrega', time: 'Proxima etapa', done: false },
-    ],
-  },
-  {
-    id: '#GC-1047',
-    status: 'Aguardando faturamento',
-    customer: 'Distribuidora Norte',
-    total: 'R$ 842,60',
-    items: '8 itens',
-    eta: 'Previsao para amanha, 09:00',
-    progress: 42,
-    steps: [
-      { label: 'Pedido recebido', time: 'Ontem, 16:18', done: true },
-      { label: 'Validacao comercial', time: 'Ontem, 16:31', done: true },
-      { label: 'Faturamento', time: 'Em analise', done: false },
-      { label: 'Separacao', time: 'Aguardando', done: false },
-    ],
-  },
-  {
-    id: '#GC-1046',
-    status: 'Entregue',
-    customer: 'Mercado Primavera',
-    total: 'R$ 1.678,90',
-    items: '15 itens',
-    eta: 'Entregue em 22/05, 11:03',
-    progress: 100,
-    steps: [
-      { label: 'Pedido recebido', time: '22/05, 08:14', done: true },
-      { label: 'Separacao concluida', time: '22/05, 09:02', done: true },
-      { label: 'Saiu para entrega', time: '22/05, 09:48', done: true },
-      { label: 'Entregue', time: '22/05, 11:03', done: true },
-    ],
-  },
-];
+import { useState } from 'react';
 
-export default function AcompanhamentoPedidos({ onBackToCatalog }) {
+export const initialTrackedOrders = [];
+
+export default function AcompanhamentoPedidos({
+  onBackToCatalog,
+  onEditOrder,
+  trackedOrders = initialTrackedOrders,
+}) {
+  const [expandedOrderId, setExpandedOrderId] = useState('');
+
   return (
     <section className="order-tracking order-tracking--screen" aria-labelledby="tracking-title">
       <div className="store-section-heading">
@@ -59,41 +21,89 @@ export default function AcompanhamentoPedidos({ onBackToCatalog }) {
         </button>
       </div>
 
-      <div className="order-tracking__grid">
-        {trackedOrders.map((order) => (
-          <article key={order.id} className="order-tracking__card">
-            <div className="order-tracking__header">
-              <div>
-                <span>{order.id}</span>
-                <strong>{order.status}</strong>
+      {trackedOrders.length ? (
+        <div className="order-tracking__grid">
+          {trackedOrders.map((order) => (
+            <article key={order.id} className="order-tracking__card">
+              <div className="order-tracking__header">
+                <div>
+                  <span>{order.id}</span>
+                  <strong>{order.status}</strong>
+                </div>
+                <small>{order.items}</small>
               </div>
-              <small>{order.items}</small>
-            </div>
 
-            <div className="order-tracking__meta">
-              <span>{order.customer}</span>
-              <strong>{order.total}</strong>
-              <small>{order.eta}</small>
-            </div>
+              <div className="order-tracking__meta">
+                <span>{order.customer}</span>
+                <strong>{order.total}</strong>
+                <small>{order.eta}</small>
+              </div>
 
-            <div className="order-tracking__progress" aria-label={`Progresso ${order.progress}%`}>
-              <span style={{ width: `${order.progress}%` }} />
-            </div>
+              <div className="order-tracking__progress" aria-label={`Progresso ${order.progress}%`}>
+                <span style={{ width: `${order.progress}%` }} />
+              </div>
 
-            <ol className="order-tracking__timeline">
-              {order.steps.map((step) => (
-                <li key={`${order.id}-${step.label}`} className={step.done ? 'is-done' : ''}>
-                  <span aria-hidden="true" />
-                  <div>
-                    <strong>{step.label}</strong>
-                    <small>{step.time}</small>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </article>
-        ))}
-      </div>
+              <ol className="order-tracking__timeline">
+                {order.steps.map((step) => (
+                  <li key={`${order.id}-${step.label}`} className={step.done ? 'is-done' : ''}>
+                    <span aria-hidden="true" />
+                    <div>
+                      <strong>{step.label}</strong>
+                      <small>{step.time}</small>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="order-tracking__actions">
+                <button
+                  type="button"
+                  className="order-tracking__action"
+                  onClick={() =>
+                    setExpandedOrderId((currentOrderId) =>
+                      currentOrderId === order.id ? '' : order.id,
+                    )
+                  }
+                >
+                  {expandedOrderId === order.id ? 'Ocultar itens' : 'Ver itens do pedido'}
+                </button>
+
+                {order.canEdit && onEditOrder ? (
+                  <button
+                    type="button"
+                    className="order-tracking__action order-tracking__action--secondary"
+                    onClick={() => onEditOrder?.(order)}
+                  >
+                    Editar pedido
+                  </button>
+                ) : null}
+              </div>
+
+              {expandedOrderId === order.id ? (
+                <div className="order-tracking__details">
+                  <strong>Itens do pedido</strong>
+                  <ul className="order-tracking__items">
+                    {order.lineItems?.map((item) => (
+                      <li key={`${order.id}-${item.cartKey || item.name}`}>
+                        <div>
+                          <span>{item.name}</span>
+                          <small>{item.quantity} unidade(s)</small>
+                        </div>
+                        <strong>{item.price}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="store-catalog__empty">
+          <strong>Nenhum pedido criado ainda</strong>
+          <span>Finalize um pedido no carrinho para acompanhar o status por aqui.</span>
+        </div>
+      )}
     </section>
   );
 }
