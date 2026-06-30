@@ -1,6 +1,6 @@
 ﻿import { useEffect, useState } from 'react';
 import backgroundImage from '../assets/Imagenslogin/bg_login.jpg';
-import brandImage from '../assets/icones/coroa_store.png';
+import crownImage from '../assets/icones/designer.png';
 import Produtos from './Produtos';
 
 const demoCredentials = [
@@ -34,17 +34,17 @@ const navItems = [
 const featureItems = [
   {
     title: 'Pedidos Rápidos',
-    description: 'Agilidade para comprar quando você precisa.',
+    description: 'Maior Agilidade e Autonomia Para Realizar Seus Pedidos.',
     icon: 'speed',
   },
   {
     title: 'Ofertas Exclusivas',
-    description: 'Condições especiais para o seu negócio.',
+    description: 'Confira Condições Especiais.',
     icon: 'tag',
   },
   {
     title: 'Suporte Comercial',
-    description: 'Conte com nosso time sempre que precisar.',
+    description: 'Conte com nosso time sempre que precisar!',
     icon: 'headset',
   },
 ];
@@ -153,7 +153,13 @@ function Icon({ type }) {
 function BrandMark() {
   return (
     <div className="login-brandmark" aria-label="Coroa Store">
-      <img src={brandImage} alt="Coroa Store" className="login-brandmark__image" />
+      <h1>
+        <span className="brand-name">Coroa</span>
+        <span className="brand-store">Store</span>
+        <span className="brand-crown" aria-hidden="true">
+          <img src={crownImage} alt="" />
+        </span>
+      </h1>
     </div>
   );
 }
@@ -185,7 +191,7 @@ function TopBar({ onOpenRegister }) {
           <span className="login-icon">
             <Icon type="user-plus" />
           </span>
-          Solicitar acesso
+          Solicitar Acesso
         </button>
       </div>
     </header>
@@ -203,10 +209,6 @@ function HeroSection() {
         </h1>
 
         <span className="login-hero__divider" />
-
-        <p className="login-hero__copy">
-          Acesse o catálogo, acompanhe ofertas exclusivas e centralize seus pedidos em uma plataforma criada para facilitar a rotina dos clientes do Grupo Coroa.
-        </p>
 
         <div className="login-hero__features" aria-label="Beneficios principais">
           {featureItems.map((item) => (
@@ -250,13 +252,6 @@ function LoginPanel({ onLogin }) {
   return (
     <section id="login-card" className="login-panel" aria-labelledby="login-title">
       <div className="login-panel__header">
-        <span className="login-pill">
-          <span className="login-icon login-icon--small">
-            <Icon type="lock" />
-          </span>
-          ACESSO SEGURO
-        </span>
-
         <h2 id="login-title">Acessar plataforma</h2>
         <p>Entre com suas credenciais para continuar</p>
       </div>
@@ -271,7 +266,7 @@ function LoginPanel({ onLogin }) {
             <input
               id="login-email"
               type="email"
-              placeholder="voce@empresa.com"
+              placeholder="seuemail@.com.br"
               autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
@@ -313,10 +308,8 @@ function LoginPanel({ onLogin }) {
 
         {error ? <p className="login-form__error">{error}</p> : null}
 
-
         <button type="submit" className="login-submit">
-          Entrar agora
-          <span aria-hidden="true">â†’</span>
+          Entrar
         </button>
 
         <button type="button" className="login-request-access">
@@ -326,16 +319,6 @@ function LoginPanel({ onLogin }) {
           Solicitar acesso
         </button>
       </form>
-
-      <div className="login-panel__footer">
-        <span className="login-icon login-icon--tiny">
-          <Icon type="shield" />
-        </span>
-        <span>Seus dados estao protegidos com criptografia de ponta.</span>
-        <button type="button" className="login-link">
-          Saiba mais
-        </button>
-      </div>
     </section>
   );
 }
@@ -684,4 +667,3 @@ export default function Login({ onLogin }) {
     </main>
   );
 }
-

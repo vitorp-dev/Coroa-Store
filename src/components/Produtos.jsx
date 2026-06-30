@@ -3,7 +3,6 @@ import kitRefri from '../assets/ImgProduto/kit_refri.png';
 import KitBw from '../assets/ImgProduto/kit_bw.png';
 import kitCampinho from '../assets/ImgProduto/kit_campinho.png';
 import KitTeresense from '../assets/ImgProduto/kit_teresense.png';
-import bgProdutos from '../assets/ImgProduto/kit_refri.png';
 
 const productImages = import.meta.glob('../assets/ImgProduto/*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -56,14 +55,12 @@ export default function Produtos() {
 
   return (
     <section id="produtos" className="products-section" aria-labelledby="products-title">
-      <div
-        className="products-section__inner"
-        style={{ '--products-bg': `url(${bgProdutos})` }}
-      >
+      <div className="products-section__inner">
         <div className="products-section__header">
           <div className="products-section__headline">
-            <span className="products-section__eyebrow">Catalogo</span>
+            {/* <span className="products-section__eyebrow">Catalogo</span> */}
             <h2 id="products-title">Produtos em destaque</h2>
+            <br />
             <p>
               Confira as principais linhas para abastecer seu negócio!
             </p>
